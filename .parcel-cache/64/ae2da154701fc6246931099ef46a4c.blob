@@ -21902,7 +21902,6 @@ class MainView extends _reactDefault.default.Component {
             __self: this
         }, movies.map((movie)=>/*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
                 key: movie._id,
-                movies: movies,
                 __source: {
                     fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
                     lineNumber: 24
@@ -22105,4 +22104,4 @@ class MovieCard extends _reactDefault.default.Component {
 }
 },{"react":"3b2NM","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9"}],"6cAZy":[function() {},{}]},["1j6wU","6lZdS","1Y3nD"], "1Y3nD", "parcelRequire279c")
 
-//# sourceMappingURL=index.c6e1c99b.js.map
+//# sourceMappingURL=index.HASH_REF_a738db8b7166dbaaac15f9b5c6e1c99b.js.map
