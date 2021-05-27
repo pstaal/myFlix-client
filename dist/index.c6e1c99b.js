@@ -21891,7 +21891,7 @@ class MainView extends _reactDefault.default.Component {
                 lineNumber: 39
             },
             __self: this
-        }, "The list is empty!"));
+        }));
         return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "main-view",
             __source: {
