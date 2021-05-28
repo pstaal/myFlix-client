@@ -21871,6 +21871,8 @@ class MainView extends _reactDefault.default.Component {
             user: null,
             registered: false
         };
+        this.onLoggedIn = this.onLoggedIn.bind(this);
+        this.onRegistration = this.onRegistration.bind(this);
     }
     componentDidMount() {
         _axiosDefault.default.get('https://whispering-journey-40194.herokuapp.com/movies').then((response)=>{
@@ -21902,7 +21904,7 @@ class MainView extends _reactDefault.default.Component {
             onRegistration: this.onRegistration,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 57
+                lineNumber: 59
             },
             __self: this
         }));
@@ -21911,7 +21913,7 @@ class MainView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 59
+                lineNumber: 61
             },
             __self: this
         }));
@@ -21919,7 +21921,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 61
+                lineNumber: 63
             },
             __self: this
         }));
@@ -21927,7 +21929,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 64
+                lineNumber: 66
             },
             __self: this
         }, selectedMovie ? /*#__PURE__*/ _reactDefault.default.createElement(_movieView.MovieView, {
@@ -21937,7 +21939,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 66
+                lineNumber: 68
             },
             __self: this
         }) : movies.map((movie)=>/*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
@@ -21948,7 +21950,7 @@ class MainView extends _reactDefault.default.Component {
                 },
                 __source: {
                     fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                    lineNumber: 68
+                    lineNumber: 70
                 },
                 __self: this
             })

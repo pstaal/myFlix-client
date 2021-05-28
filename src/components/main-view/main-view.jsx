@@ -17,6 +17,8 @@ class MainView extends React.Component {
       user: null,
       registered: false
     };
+    this.onLoggedIn = this.onLoggedIn.bind(this);
+    this.onRegistration = this.onRegistration.bind(this);
   }
 
   componentDidMount(){
