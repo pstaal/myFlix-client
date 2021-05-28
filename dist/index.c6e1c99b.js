@@ -26100,6 +26100,10 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _form = require("react-bootstrap/Form");
+var _formDefault = parcelHelpers.interopDefault(_form);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _s = $RefreshSig$();
 function RegistrationView(props) {
     _s();
@@ -26112,82 +26116,111 @@ function RegistrationView(props) {
         console.log(username, password, email, birthDate);
         /* Send a request to the server for authentication */ /* then call props.onLoggedIn(username) */ props.onRegistration();
     };
-    return(/*#__PURE__*/ _reactDefault.default.createElement("form", {
+    return(/*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 19
+            lineNumber: 21
         },
         __self: this
-    }, /*#__PURE__*/ _reactDefault.default.createElement("label", {
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
+        controlId: "formUsername",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 20
+            lineNumber: 22
         },
         __self: this
-    }, "Username:", /*#__PURE__*/ _reactDefault.default.createElement("input", {
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 23
+        },
+        __self: this
+    }, "Username:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
         type: "text",
         value: username,
         onChange: (e)=>setUsername(e.target.value)
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 22
-        },
-        __self: this
-    })), /*#__PURE__*/ _reactDefault.default.createElement("label", {
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
             lineNumber: 24
         },
         __self: this
-    }, "Password:", /*#__PURE__*/ _reactDefault.default.createElement("input", {
+    })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
+        controlId: "formPassword",
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 26
+        },
+        __self: this
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 27
+        },
+        __self: this
+    }, "Password:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
         type: "text",
         value: password,
         onChange: (e)=>setPassword(e.target.value)
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 26
-        },
-        __self: this
-    })), /*#__PURE__*/ _reactDefault.default.createElement("label", {
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
             lineNumber: 28
         },
         __self: this
-    }, "email:", /*#__PURE__*/ _reactDefault.default.createElement("input", {
+    })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
+        controlId: "formEmail",
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 30
+        },
+        __self: this
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 32
+        },
+        __self: this
+    }, "email:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
         type: "text",
         value: email,
         onChange: (e)=>setEmail(e.target.value)
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 30
+            lineNumber: 33
         },
         __self: this
-    })), /*#__PURE__*/ _reactDefault.default.createElement("label", {
+    })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
+        controlId: "formBirthDate",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 32
+            lineNumber: 36
         },
         __self: this
-    }, "birthdate:", /*#__PURE__*/ _reactDefault.default.createElement("input", {
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 38
+        },
+        __self: this
+    }, "birthdate:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
         type: "text",
         value: birthDate,
         onChange: (e)=>setBirthDate(e.target.value)
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 34
+            lineNumber: 39
         },
         __self: this
-    })), /*#__PURE__*/ _reactDefault.default.createElement("button", {
+    })), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+        variant: "primary",
         type: "submit",
         onClick: handleSubmit,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 36
+            lineNumber: 42
         },
         __self: this
     }, "Submit")));
@@ -26205,7 +26238,7 @@ $RefreshReg$(_c, "RegistrationView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"3b2NM","prop-types":"4dfy5","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9"}],"3fzwD":[function(require,module,exports) {
+},{"react":"3b2NM","prop-types":"4dfy5","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","react-bootstrap/Form":"6A5ko","react-bootstrap/Button":"1ru0l"}],"3fzwD":[function(require,module,exports) {
 "use strict";
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 exports.__esModule = true;
