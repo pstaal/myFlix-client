@@ -21939,14 +21939,7 @@ class MainView extends _reactDefault.default.Component {
     }
     render() {
         const { movies , selectedMovie , user , registered  } = this.state;
-        if (!registered) return(/*#__PURE__*/ _reactDefault.default.createElement(_registrationView.RegistrationView, {
-            onRegistration: this.onRegistration,
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 91
-            },
-            __self: this
-        }));
+        // if (!registered) return <RegistrationView onRegistration={this.onRegistration} />
         /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/ if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement(_loginView.LoginView, {
             onLoggedIn: (user1)=>this.onLoggedIn(user1)
             ,
