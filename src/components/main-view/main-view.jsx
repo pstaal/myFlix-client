@@ -7,6 +7,9 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
 
 
 
@@ -74,6 +77,14 @@ class MainView extends React.Component {
     });
   }
 
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
+  }
+
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
@@ -90,11 +101,19 @@ class MainView extends React.Component {
      
      // if (!registered) return <RegistrationView onRegistration={this.onRegistration} />
      /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     if (movies.length === 0) return <div className="main-view" />;
 
     return (
+      <>
+        <Navbar expand="true">
+        <Nav>
+          <Nav.Item>
+            <Button onClick={() => { this.onLoggedOut() }}>Logout</Button>
+          </Nav.Item>
+        </Nav>
+        </Navbar>
         <Row className="justify-content-md-center main-view">
         {selectedMovie
           ? ( 
@@ -111,6 +130,7 @@ class MainView extends React.Component {
           )
         }
         </Row>
+      </>
     );
 
     
