@@ -1,49 +1,30 @@
 import React from 'react';
 import axios from 'axios';
 
-import { LoginView } from '../login-view/login-view';
-import { RegistrationView } from '../registration-view/registration-view';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from '../registration-view/registration-view';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar';
 
 
 
-class MainView extends React.Component {
+export class MainView extends React.Component {
 
   constructor() {
     super();
     this.state = {
       movies: [],
-      selectedMovie: null,
       user: null,
-      registered: false
     };
     this.onLoggedIn = this.onLoggedIn.bind(this);
     this.onRegistration = this.onRegistration.bind(this);
   }
 
-  componentDidMount(){
-    axios.get('https://whispering-journey-40194.herokuapp.com/movies')
-      .then(response => {
-        this.setState({
-          movies: response.data
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  setSelectedMovie(newSelectedMovie) {
-    this.setState({
-      selectedMovie: newSelectedMovie
-    });
-  }
 
   getMovies(token) {
     axios.get('https://whispering-journey-40194.herokuapp.com/movies', {
@@ -71,20 +52,6 @@ class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  onRegistration() {
-    this.setState({
-      registered: true
-    });
-  }
-
-  onLoggedOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.setState({
-      user: null
-    });
-  }
-
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
@@ -95,46 +62,35 @@ class MainView extends React.Component {
     }
   }
   
-
   render() {
-    const { movies, selectedMovie, user, registered } = this.state;
-     
-     // if (!registered) return <RegistrationView onRegistration={this.onRegistration} />
-     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    const { movies, user } = this.state;
 
+    if (!user) return <Row>
+      <Col>
+        <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+      </Col>
+    </Row>
     if (movies.length === 0) return <div className="main-view" />;
 
     return (
-      <>
-        <Navbar expand="true">
-        <Nav>
-          <Nav.Item>
-            <Button onClick={() => { this.onLoggedOut() }}>Logout</Button>
-          </Nav.Item>
-        </Nav>
-        </Navbar>
-        <Row className="justify-content-md-center main-view">
-        {selectedMovie
-          ? ( 
-              <Col md={8}>
-                <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+      <Router>
+        <Row className="main-view justify-content-md-center">
+          <Route exact path="/" render={() => {
+            return movies.map(m => (
+              <Col md={3} key={m._id}>
+                <MovieCard movie={m} />
               </Col>
-          )
-          : (
-              movies.map(movie => (
-                <Col md={3}>
-                  <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-                </Col>
-              ))
-          )
-        }
+            ))
+          }} />
+          <Route path="/movies/:movieId" render={({ match }) => {
+            return <Col md={8}>
+              <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
+            </Col>
+          }} />
+
         </Row>
-      </>
+      </Router>
     );
-
-    
   }
-}
-
-export default MainView;
+  
+};
