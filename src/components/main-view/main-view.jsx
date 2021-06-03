@@ -12,6 +12,8 @@ import { GenreView } from '../genre-view/genre-view';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar'
 
 
 
@@ -68,7 +70,20 @@ export class MainView extends React.Component {
 
     return (
       <Router>
+        <Navbar defaultActiveKey="/home">
+          <Nav.Item>
+            <Nav.Link href="/">All Movies</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/">My Profile</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/">My favorite Movies</Nav.Link>
+          </Nav.Item>
+        </Navbar>
+
         <Row className="main-view justify-content-md-center">
+
         <Route exact path="/" render={() => {
             if (!user) return <Col>
           <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
