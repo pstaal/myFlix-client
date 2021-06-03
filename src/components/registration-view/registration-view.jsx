@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
@@ -9,12 +10,22 @@ export function RegistrationView(props) {
   const [email, setEmail ] = useState('');
   const [birthDate, setBirthDate ] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthDate);
-    /* Send a request to the server for authentication */
-    /* then call props.onLoggedIn(username) */
-    props.onRegistration();
+    axios.post('https://whispering-journey-40194.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthDate
+    })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
   };
 
   return (
@@ -39,11 +50,7 @@ export function RegistrationView(props) {
         <Form.Control type="text" value={birthDate} onChange={e => setBirthDate(e.target.value)} />
       
       </Form.Group>
-        <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+        <Button variant="primary" type="submit" onClick={handleRegister}>Submit</Button>
     </Form>
   );
 }
-
-RegistrationView.propTypes = {
-  onRegistration: PropTypes.func.isRequired
-};

@@ -28559,6 +28559,8 @@ var _form = require("react-bootstrap/Form");
 var _formDefault = parcelHelpers.interopDefault(_form);
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _s = $RefreshSig$();
 function RegistrationView(props) {
     _s();
@@ -28566,28 +28568,38 @@ function RegistrationView(props) {
     const [password, setPassword] = _react.useState('');
     const [email, setEmail] = _react.useState('');
     const [birthDate, setBirthDate] = _react.useState('');
-    const handleSubmit = (e)=>{
+    const handleRegister = (e)=>{
         e.preventDefault();
-        console.log(username, password, email, birthDate);
-        /* Send a request to the server for authentication */ /* then call props.onLoggedIn(username) */ props.onRegistration();
+        _axiosDefault.default.post('https://whispering-journey-40194.herokuapp.com/users', {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: birthDate
+        }).then((response)=>{
+            const data = response.data;
+            console.log(data);
+            window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+        }).catch((e1)=>{
+            console.log('error registering the user');
+        });
     };
     return(/*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 21
+            lineNumber: 32
         },
         __self: this
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
         controlId: "formUsername",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 22
+            lineNumber: 33
         },
         __self: this
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 23
+            lineNumber: 34
         },
         __self: this
     }, "Username:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -28597,20 +28609,20 @@ function RegistrationView(props) {
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 24
+            lineNumber: 35
         },
         __self: this
     })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
         controlId: "formPassword",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 26
+            lineNumber: 37
         },
         __self: this
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 27
+            lineNumber: 38
         },
         __self: this
     }, "Password:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -28620,20 +28632,20 @@ function RegistrationView(props) {
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 28
+            lineNumber: 39
         },
         __self: this
     })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
         controlId: "formEmail",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 30
+            lineNumber: 41
         },
         __self: this
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 32
+            lineNumber: 43
         },
         __self: this
     }, "email:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -28643,20 +28655,20 @@ function RegistrationView(props) {
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 33
+            lineNumber: 44
         },
         __self: this
     })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
         controlId: "formBirthDate",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 36
+            lineNumber: 47
         },
         __self: this
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 38
+            lineNumber: 49
         },
         __self: this
     }, "birthdate:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -28666,25 +28678,22 @@ function RegistrationView(props) {
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 39
+            lineNumber: 50
         },
         __self: this
     })), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
         variant: "primary",
         type: "submit",
-        onClick: handleSubmit,
+        onClick: handleRegister,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 42
+            lineNumber: 53
         },
         __self: this
     }, "Submit")));
 }
 _s(RegistrationView, "JyhLbIFguttinP6NyduGeMpezzE=");
 _c = RegistrationView;
-RegistrationView.propTypes = {
-    onRegistration: _propTypesDefault.default.func.isRequired
-};
 var _c;
 $RefreshReg$(_c, "RegistrationView");
 
@@ -28693,7 +28702,7 @@ $RefreshReg$(_c, "RegistrationView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"3b2NM","prop-types":"4dfy5","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","react-bootstrap/Form":"6A5ko","react-bootstrap/Button":"1ru0l"}],"3fzwD":[function(require,module,exports) {
+},{"react":"3b2NM","prop-types":"4dfy5","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","react-bootstrap/Form":"6A5ko","react-bootstrap/Button":"1ru0l","axios":"7rA65"}],"3fzwD":[function(require,module,exports) {
 "use strict";
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 exports.__esModule = true;
