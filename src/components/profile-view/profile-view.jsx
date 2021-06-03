@@ -4,9 +4,39 @@ import Button from 'react-bootstrap/Button';
 
 export class ProfileView extends React.Component {
 
-  render() {
-    const { user, onBackClick } = this.props;
+  constructor() {
+    super();
+    this.state = {
+      user: null,
+    };
+  }
 
+  getUser(token) {
+    axios.get(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        user: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    this.getUsers(accessToken);
+  }
+
+
+  render() {
+
+    const { onBackClick } = this.props;
+    const { user } = this.state;
+ 
     console.log(user);
 
     return (
