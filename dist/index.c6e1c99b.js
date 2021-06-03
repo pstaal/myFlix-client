@@ -21909,10 +21909,10 @@ class MainView extends _reactDefault.default.Component {
     onLoggedIn(authData) {
         console.log(authData);
         this.setState({
-            user: authData.user
+            user: authData.user.Username
         });
         localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user);
+        localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
     }
     componentDidMount() {
@@ -21958,7 +21958,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
-            to: "/user",
+            to: `/users/${user}`,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
                 lineNumber: 79
@@ -22087,8 +22087,8 @@ class MainView extends _reactDefault.default.Component {
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
-            path: "/user",
-            render: ({ history  })=>{
+            path: "/users/:username",
+            render: ({ match , history  })=>{
                 if (!user) return(/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, null, /*#__PURE__*/ _reactDefault.default.createElement(_loginView.LoginView, {
                     onLoggedIn: (user1)=>this.onLoggedIn(user1)
                 })));
@@ -22098,7 +22098,7 @@ class MainView extends _reactDefault.default.Component {
                 return(/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
                     md: 8
                 }, /*#__PURE__*/ _reactDefault.default.createElement(_profileView.ProfileView, {
-                    user: user,
+                    user: match.params.username,
                     onBackClick: ()=>history.goBack()
                 })));
             },
@@ -22116,7 +22116,7 @@ class MainView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"3b2NM","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","../movie-card/movie-card":"V7mNr","axios":"7rA65","../movie-view/movie-view":"4tMtF","../login-view/login-view":"4KXCk","../registration-view/registration-view":"1JAbE","react-bootstrap/Row":"3fzwD","react-bootstrap/Col":"2D0r8","react-router-dom":"1PMSK","../director-view/director-view":"19Kyf","../genre-view/genre-view":"1t4nn","react-bootstrap/Nav":"3T3v1","react-bootstrap/Navbar":"3qLFd","../profile-view/profile-view":"20fG5"}],"67PgH":[function(require,module,exports) {
+},{"react":"3b2NM","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","../movie-card/movie-card":"V7mNr","axios":"7rA65","../movie-view/movie-view":"4tMtF","../login-view/login-view":"4KXCk","../registration-view/registration-view":"1JAbE","react-bootstrap/Row":"3fzwD","react-bootstrap/Col":"2D0r8","react-bootstrap/Nav":"3T3v1","react-bootstrap/Navbar":"3qLFd","react-router-dom":"1PMSK","../director-view/director-view":"19Kyf","../genre-view/genre-view":"1t4nn","../profile-view/profile-view":"20fG5"}],"67PgH":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -28838,204 +28838,7 @@ var _default = Row;
 exports.default = _default;
 module.exports = exports["default"];
 
-},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","react":"3b2NM","./ThemeProvider":"4rz1S"}],"19Kyf":[function(require,module,exports) {
-var helpers = require("../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-helpers.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "DirectorView", ()=>DirectorView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
-class DirectorView extends _reactDefault.default.Component {
-    render() {
-        const { director , onBackClick  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "director-view",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 11
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "director-name",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 12
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "label",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 13
-            },
-            __self: this
-        }, "Name: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "value",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 14
-            },
-            __self: this
-        }, director.Name)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "director-bio",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 16
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "label",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 17
-            },
-            __self: this
-        }, "Bio: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "value",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 18
-            },
-            __self: this
-        }, director.Bio)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "director-birth",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 20
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "label",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 21
-            },
-            __self: this
-        }, "Birth year: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "value",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 22
-            },
-            __self: this
-        }, director.Birth)), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "link",
-            onClick: ()=>{
-                onBackClick();
-            },
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
-                lineNumber: 24
-            },
-            __self: this
-        }, "Back")));
-    }
-}
-
-  helpers.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9"}],"1t4nn":[function(require,module,exports) {
-var helpers = require("../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-helpers.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "GenreView", ()=>GenreView
-);
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
-class GenreView extends _reactDefault.default.Component {
-    render() {
-        const { genre , onBackClick  } = this.props;
-        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "genre-view",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 11
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "genre-name",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 12
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "label",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 13
-            },
-            __self: this
-        }, "Name: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "value",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 14
-            },
-            __self: this
-        }, genre.Name)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
-            className: "genre-description",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 16
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "label",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 17
-            },
-            __self: this
-        }, "Description: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
-            className: "value",
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 18
-            },
-            __self: this
-        }, genre.Description)), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            variant: "link",
-            onClick: ()=>{
-                onBackClick();
-            },
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
-                lineNumber: 20
-            },
-            __self: this
-        }, "Back")));
-    }
-}
-
-  helpers.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9"}],"3T3v1":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","react":"3b2NM","./ThemeProvider":"4rz1S"}],"3T3v1":[function(require,module,exports) {
 "use strict";
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 exports.__esModule = true;
@@ -31357,7 +31160,204 @@ var _default = NavbarToggle;
 exports.default = _default;
 module.exports = exports["default"];
 
-},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","react":"3b2NM","@restart/hooks/useEventCallback":"3v8B9","./ThemeProvider":"4rz1S","./NavbarContext":"1Ts0D"}],"20fG5":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","react":"3b2NM","@restart/hooks/useEventCallback":"3v8B9","./ThemeProvider":"4rz1S","./NavbarContext":"1Ts0D"}],"19Kyf":[function(require,module,exports) {
+var helpers = require("../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "DirectorView", ()=>DirectorView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+class DirectorView extends _reactDefault.default.Component {
+    render() {
+        const { director , onBackClick  } = this.props;
+        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "director-view",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 11
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "director-name",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 12
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "label",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 13
+            },
+            __self: this
+        }, "Name: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "value",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 14
+            },
+            __self: this
+        }, director.Name)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "director-bio",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 16
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "label",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 17
+            },
+            __self: this
+        }, "Bio: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "value",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 18
+            },
+            __self: this
+        }, director.Bio)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "director-birth",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 20
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "label",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 21
+            },
+            __self: this
+        }, "Birth year: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "value",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 22
+            },
+            __self: this
+        }, director.Birth)), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "link",
+            onClick: ()=>{
+                onBackClick();
+            },
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/director-view/director-view.jsx",
+                lineNumber: 24
+            },
+            __self: this
+        }, "Back")));
+    }
+}
+
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9"}],"1t4nn":[function(require,module,exports) {
+var helpers = require("../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "GenreView", ()=>GenreView
+);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+class GenreView extends _reactDefault.default.Component {
+    render() {
+        const { genre , onBackClick  } = this.props;
+        return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "genre-view",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 11
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "genre-name",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 12
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "label",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 13
+            },
+            __self: this
+        }, "Name: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "value",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 14
+            },
+            __self: this
+        }, genre.Name)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
+            className: "genre-description",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 16
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "label",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 17
+            },
+            __self: this
+        }, "Description: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
+            className: "value",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 18
+            },
+            __self: this
+        }, genre.Description)), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "link",
+            onClick: ()=>{
+                onBackClick();
+            },
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/genre-view/genre-view.jsx",
+                lineNumber: 20
+            },
+            __self: this
+        }, "Back")));
+    }
+}
+
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9"}],"20fG5":[function(require,module,exports) {
 var helpers = require("../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -31375,77 +31375,102 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 class ProfileView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        this.state = {
+            user: null
+        };
+    }
+    getUser(token) {
+        axios.get(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            // Assign the result to the state
+            this.setState({
+                user: response.data
+            });
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        this.getUsers(accessToken);
+    }
     render() {
-        const { user , onBackClick  } = this.props;
+        const { onBackClick  } = this.props;
+        const { user  } = this.state;
         console.log(user);
         return(/*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "profile-view",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 13
+                lineNumber: 43
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "user-name",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 14
+                lineNumber: 44
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
             className: "label",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 15
+                lineNumber: 45
             },
             __self: this
         }, "Name: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
             className: "value",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 16
+                lineNumber: 46
             },
             __self: this
         }, user.Username)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "user-email",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 18
+                lineNumber: 48
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
             className: "label",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 19
+                lineNumber: 49
             },
             __self: this
         }, "Email: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
             className: "value",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 20
+                lineNumber: 50
             },
             __self: this
         }, user.Email)), /*#__PURE__*/ _reactDefault.default.createElement("div", {
             className: "user-birth",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 22
+                lineNumber: 52
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("span", {
             className: "label",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 23
+                lineNumber: 53
             },
             __self: this
         }, "Birthdate: "), /*#__PURE__*/ _reactDefault.default.createElement("span", {
             className: "value",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 24
+                lineNumber: 54
             },
             __self: this
         }, user.Birthday)), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
@@ -31455,7 +31480,7 @@ class ProfileView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 26
+                lineNumber: 56
             },
             __self: this
         }, "Back")));
