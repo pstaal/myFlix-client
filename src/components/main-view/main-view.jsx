@@ -22,7 +22,6 @@ export class MainView extends React.Component {
       user: null,
     };
     this.onLoggedIn = this.onLoggedIn.bind(this);
-    this.onRegistration = this.onRegistration.bind(this);
   }
 
 
