@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 export class ProfileView extends React.Component {
 
@@ -11,7 +12,13 @@ export class ProfileView extends React.Component {
     };
   }
 
-  getUser(token) {
+  componentDidMount = () => {
+    this.getUser();
+  }
+
+
+  getUser = () => {
+    let token = localStorage.getItem('token');
     axios.get(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
       headers: { Authorization: `Bearer ${token}`}
     })
@@ -25,11 +32,6 @@ export class ProfileView extends React.Component {
       console.log(error);
     });
   }
-  
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    this.getUsers(accessToken);
-  }
 
 
   render() {
@@ -40,6 +42,8 @@ export class ProfileView extends React.Component {
     console.log(user);
 
     return (
+      <>
+      {user && 
       <div className="profile-view">
         <div className="user-name">
           <span className="label">Name: </span>
@@ -54,8 +58,9 @@ export class ProfileView extends React.Component {
           <span className="value">{user.Birthday}</span>
         </div>
         <Button variant="link" onClick={() => { onBackClick(); }}>Back</Button>
-
       </div>
+      }
+      </>
     );
   }
 }
