@@ -64,11 +64,11 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
     }
+    console.log(this.state);
   }
   
   render() {
     const { movies, user } = this.state;
-
     return (
       <Router>
         <Navbar>
