@@ -38,7 +38,7 @@ export class ProfileView extends React.Component {
   handleUpdate = (e) => {
     e.preventDefault();
     console.log(this.state.user);
-    axios.put(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user.Username}`, {
+    axios.put(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
       Username: this.state.user.Username,
       Password: this.state.user.Password,
       Email: this.state.user.Email,
@@ -97,7 +97,7 @@ export class ProfileView extends React.Component {
 
           <Form.Group controlId="formPassword">
           <Form.Label>password:</Form.Label>
-            <Form.Control type="text" value={user.Password} onChange={e => this.setState({ user: {
+            <Form.Control type="text" value={''} onChange={e => this.setState({ user: {
             ...this.state.user,
             Password: e.target.value
           }})} />
