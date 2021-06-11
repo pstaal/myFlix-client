@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import { MovieCard } from '../movie-card/movie-card';
 
 export class ProfileView extends React.Component {
 
@@ -10,6 +11,7 @@ export class ProfileView extends React.Component {
     super();
     this.state = {
       user: null,
+      favoriteMovies: [],
       update: false
     };
   }
@@ -29,14 +31,17 @@ export class ProfileView extends React.Component {
       this.setState({
         user: response.data
       });
+      console.log(this.state.user);
     })
     .catch(function (error) {
       console.log(error);
     });
-  }
+   }
+    
 
   handleUpdate = (e) => {
     e.preventDefault();
+    const { logoutUser } = this.props;
     console.log(this.state.user);
     axios.put(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
       Username: this.state.user.Username,
@@ -51,14 +56,20 @@ export class ProfileView extends React.Component {
     .catch(function (error) {
       console.log(error);
     })
-
+    logoutUser();
   }
 
 
   render() {
 
-    const { onBackClick } = this.props;
+    const { onBackClick, movies } = this.props;
     const { user, update } = this.state;
+    console.log(user);
+    //console.log(user.FavoriteMovies);
+
+    //const favoritesArray = movies.filter((movie) => user.FavoriteMovies.indexOf(movie._id) !== -1);
+   // console.log(favoritesArray);
+
     
     if (!update) {
     return (
@@ -79,8 +90,9 @@ export class ProfileView extends React.Component {
         </div>
         <Button variant="link" onClick={() => { onBackClick(); }}>Back</Button>
         <Button variant="link" onClick={() => this.setState({ update : true })}>Update my profile</Button>
-      </div>
+      </div> 
       }
+      
       </>
     );
     }
@@ -97,7 +109,7 @@ export class ProfileView extends React.Component {
 
           <Form.Group controlId="formPassword">
           <Form.Label>password:</Form.Label>
-            <Form.Control type="text" value={''} onChange={e => this.setState({ user: {
+            <Form.Control type="text" onChange={e => this.setState({ user: {
             ...this.state.user,
             Password: e.target.value
           }})} />

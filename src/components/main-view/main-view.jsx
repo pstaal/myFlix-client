@@ -27,6 +27,7 @@ export class MainView extends React.Component {
       user: null,
     };
     this.onLoggedIn = this.onLoggedIn.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
   }
 
 
@@ -43,6 +44,11 @@ export class MainView extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
+  }
+
+  logoutUser() {
+    localStorage.clear();
+    this.setState({ user: null});
   }
 
   onLoggedIn(authData) {
@@ -64,7 +70,6 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
     }
-    console.log(this.state);
   }
   
   render() {
@@ -73,13 +78,13 @@ export class MainView extends React.Component {
       <Router>
         <Navbar>
           <Nav.Item>
-            <Link to="/">All Movies</Link>
+            <Nav.Link href="/">All Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Link to={`/users/${user}`}>My Profile</Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/">My favorite Movies</Nav.Link>
+            <Nav.Link onClick={this.logoutUser}>Logout</Nav.Link>
           </Nav.Item>
         </Navbar>
 
@@ -137,7 +142,7 @@ export class MainView extends React.Component {
           </Col>
           if (movies.length === 0) return <div className="main-view" />;
               return <Col md={8}>
-            <ProfileView user={match.params.username} onBackClick={() => history.goBack()}/>
+            <ProfileView logoutUser={this.logoutUser} user={match.params.username} movies={movies} onBackClick={() => history.goBack()}/>
           </Col>
             }
           } />
