@@ -15,21 +15,20 @@ export class MovieView extends React.Component {
           <img src={movie.ImagePath} />
         </div>
         <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
+          <h5 className="value">{movie.Title}</h5>
         </div>
         <div className="movie-description">
           <span className="label">Description: </span>
           <span className="value">{movie.Description}</span>
         </div>
         <Link to={`/directors/${movie.Director.Name}`}>
-          <Button variant="link">Director</Button>
+          <Button className="mt-3 mb-3 w-100">Director</Button>
         </Link>
 
         <Link to={`/genres/${movie.Genre.Name}`}>
-            <Button variant="link">Genre</Button>
+            <Button className="mb-3 w-100">Genre</Button>
         </Link>
-        <Button variant="link" onClick={() => { onBackClick(); }}>Back</Button>
+        <Button className="mb-3 w-100" onClick={() => { onBackClick(); }}>Back</Button>
 
       </div>
     );
