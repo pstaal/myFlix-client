@@ -30,6 +30,20 @@ export class MainView extends React.Component {
     this.logoutUser = this.logoutUser.bind(this);
   }
 
+  addFavorite = (id) => {
+    let token = localStorage.getItem('token');
+    console.log(token);
+    console.log(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}/movies/${id}`);
+    axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user.Username}/movies/${id}`, {
+      headers: { Authorization: `Bearer ${token}`}
+    }).then(response => {
+      console.log(response.data);
+      })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
 
   getMovies(token) {
     axios.get('https://whispering-journey-40194.herokuapp.com/movies', {
@@ -97,7 +111,7 @@ export class MainView extends React.Component {
           if (movies.length === 0) return <div className="main-view" />;
           return movies.map(m => (
          <Col md={3} key={m._id}>
-          <MovieCard movie={m} />
+          <MovieCard buttonFunction={this.addFavorite} text={'Add to Favorites'} movie={m} />
         </Col>
       ))
       }} />

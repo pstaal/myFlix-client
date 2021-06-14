@@ -7,9 +7,9 @@ import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
-  render() {
-    const { movie } = this.props;
 
+  render() {
+    const { movie, buttonFunction, text } = this.props;
     return (
       <Card>
         <Card.Img variant="top" src={movie.ImagePath} />
@@ -19,6 +19,7 @@ export class MovieCard extends React.Component {
           <Link to={`/movies/${movie._id}`}>
             <Button variant="link">Open</Button>
           </Link>
+           <Button onClick={()=>buttonFunction(movie._id)}>{text}</Button>
         </Card.Body>
       </Card>
     );

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
 
@@ -24,19 +26,23 @@ export class ProfileView extends React.Component {
   getUser = () => {
     let token = localStorage.getItem('token');
     axios.get(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
-      headers: { Authorization: `Bearer ${token}`}
+      headers: { Authorization: `Bearer ${token}` }
     })
-    .then(response => {
-      // Assign the result to the state
-      this.setState({
-        user: response.data
+      .then(response => {
+        // Filter out favorite movies based on movies props
+        const favMovies = this.props.movies.filter(item => {
+          return response.data.FavoriteMovies.includes(item._id);
+        })
+        // Assign the result to the state
+        this.setState({
+          user: response.data,
+          favoriteMovies: favMovies
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-      console.log(this.state.user);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-   }
+  }
     
 
   handleUpdate = (e) => {
@@ -59,22 +65,30 @@ export class ProfileView extends React.Component {
     logoutUser();
   }
 
+  removeFavorite = (id) => {
+    let token = localStorage.getItem('token');
+    console.log(id,token, this.state.user.Username);
+    axios.delete(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user.Username}/movies/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then(response => {
+      console.log(response.data);
+      this.setState({favoriteMovies: response.data.FavoriteMovies})
+      })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
 
   render() {
 
     const { onBackClick, movies } = this.props;
-    const { user, update } = this.state;
-    console.log(user);
-    //console.log(user.FavoriteMovies);
-
-    //const favoritesArray = movies.filter((movie) => user.FavoriteMovies.indexOf(movie._id) !== -1);
-   // console.log(favoritesArray);
-
+    const { user, update, favoriteMovies } = this.state;
     
     if (!update) {
     return (
       <>
-      {user && 
+      { user && <div>
       <div className="profile-view">
         <div className="user-name">
           <span className="label">Name: </span>
@@ -91,10 +105,16 @@ export class ProfileView extends React.Component {
         <Button variant="link" onClick={() => { onBackClick(); }}>Back</Button>
         <Button variant="link" onClick={() => this.setState({ update : true })}>Update my profile</Button>
       </div> 
+      <Row className="justify-content-md-center">
+      {favoriteMovies.map(m => (
+         <Col md={4} key={m._id}>
+          <MovieCard movie={m} buttonFunction={this.removeFavorite} text={'Remove from Favorites'}/>
+        </Col>))}
+      </Row>
+      </div>
       }
-      
-      </>
-    );
+      </> 
+    )
     }
     else {
       return (
