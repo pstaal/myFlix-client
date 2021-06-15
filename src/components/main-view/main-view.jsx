@@ -14,7 +14,9 @@ import { ProfileView } from '../profile-view/profile-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar'
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
 
@@ -25,6 +27,7 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
+      show: false
     };
     this.onLoggedIn = this.onLoggedIn.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
@@ -42,6 +45,20 @@ export class MainView extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
+  }
+
+  deregister = () => {
+    let token = localStorage.getItem('token');
+    axios.delete(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then(response => {
+      console.log(response.data);
+      this.logoutUser();
+      })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
 
 
@@ -90,17 +107,45 @@ export class MainView extends React.Component {
     const { movies, user } = this.state;
     return (
       <Router>
-        <Navbar>
+        <Navbar bg="primary" variant="dark" fixed="top">
           <Nav.Item>
-            <Nav.Link href="/">All Movies</Nav.Link>
+            <Nav.Link style={{color: 'white'}} href="/">All Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Link to={`/users/${user}`}>My Profile</Link>
+            <Link style={{color: 'white', textDecoration: 'none'}} to={`/users/${user}`}>My Profile</Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link onClick={this.logoutUser}>Logout</Nav.Link>
+            <Nav.Link style={{color: 'white'}} onClick={this.logoutUser}>Logout</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link style={{color: 'white'}} href="/register">Register</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+           <Nav.Link style={{color: 'white'}} onClick={() => this.setState({show:true})}>
+              Deregister
+          </Nav.Link>
           </Nav.Item>
         </Navbar>
+
+        <Modal
+        show={this.state.show}
+        onHide={() => this.setState({show:false})}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Deregister</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you shure you want to deregister yourself?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => this.setState({show:false})}>
+            Close
+          </Button>
+          <Button onClick={this.deregister} variant="primary">Yes!</Button>
+        </Modal.Footer>
+      </Modal>
 
         <Row className="main-view justify-content-md-center">
 

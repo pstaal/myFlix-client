@@ -21883,12 +21883,17 @@ var _nav = require("react-bootstrap/Nav");
 var _navDefault = parcelHelpers.interopDefault(_nav);
 var _navbar = require("react-bootstrap/Navbar");
 var _navbarDefault = parcelHelpers.interopDefault(_navbar);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _modal = require("react-bootstrap/Modal");
+var _modalDefault = parcelHelpers.interopDefault(_modal);
 class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
         this.state = {
             movies: [],
-            user: null
+            user: null,
+            show: false
         };
         this.onLoggedIn = this.onLoggedIn.bind(this);
         this.logoutUser = this.logoutUser.bind(this);
@@ -21903,6 +21908,19 @@ class MainView extends _reactDefault.default.Component {
             }
         }).then((response)=>{
             console.log(response.data);
+        }).catch(function(error) {
+            console.log(error);
+        });
+    };
+    deregister = ()=>{
+        let token = localStorage.getItem('token');
+        _axiosDefault.default.delete(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response.data);
+            this.logoutUser();
         }).catch(function(error) {
             console.log(error);
         });
@@ -21950,59 +21968,164 @@ class MainView extends _reactDefault.default.Component {
         return(/*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 92
+                lineNumber: 109
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navbarDefault.default, {
+            bg: "primary",
+            variant: "dark",
+            fixed: "top",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 93
+                lineNumber: 110
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 94
+                lineNumber: 111
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
+            style: {
+                color: 'white'
+            },
             href: "/",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 95
+                lineNumber: 112
             },
             __self: this
         }, "All Movies")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 97
+                lineNumber: 114
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
+            style: {
+                color: 'white',
+                textDecoration: 'none'
+            },
             to: `/users/${user}`,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 98
+                lineNumber: 115
             },
             __self: this
         }, "My Profile")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 100
+                lineNumber: 117
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
+            style: {
+                color: 'white'
+            },
             onClick: this.logoutUser,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 101
+                lineNumber: 118
             },
             __self: this
-        }, "Logout"))), /*#__PURE__*/ _reactDefault.default.createElement(_rowDefault.default, {
+        }, "Logout")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 120
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
+            style: {
+                color: 'white'
+            },
+            href: "/register",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 121
+            },
+            __self: this
+        }, "Register")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 123
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
+            style: {
+                color: 'white'
+            },
+            onClick: ()=>this.setState({
+                    show: true
+                })
+            ,
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 124
+            },
+            __self: this
+        }, "Deregister"))), /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default, {
+            show: this.state.show,
+            onHide: ()=>this.setState({
+                    show: false
+                })
+            ,
+            backdrop: "static",
+            keyboard: false,
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 130
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Header, {
+            closeButton: true,
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 136
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Title, {
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 137
+            },
+            __self: this
+        }, "Deregister")), /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Body, {
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 139
+            },
+            __self: this
+        }, "Are you shure you want to deregister yourself?"), /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Footer, {
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 142
+            },
+            __self: this
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            variant: "secondary",
+            onClick: ()=>this.setState({
+                    show: false
+                })
+            ,
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 143
+            },
+            __self: this
+        }, "Close"), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            onClick: this.deregister,
+            variant: "primary",
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
+                lineNumber: 146
+            },
+            __self: this
+        }, "Yes!"))), /*#__PURE__*/ _reactDefault.default.createElement(_rowDefault.default, {
             className: "main-view justify-content-md-center",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 105
+                lineNumber: 150
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22027,7 +22150,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 107
+                lineNumber: 152
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22040,7 +22163,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 118
+                lineNumber: 163
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22062,7 +22185,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 124
+                lineNumber: 169
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22084,7 +22207,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 133
+                lineNumber: 178
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22106,7 +22229,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 143
+                lineNumber: 188
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22129,7 +22252,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 153
+                lineNumber: 198
             },
             __self: this
         }))));
@@ -22141,7 +22264,7 @@ class MainView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"3b2NM","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","../movie-card/movie-card":"V7mNr","axios":"7rA65","../movie-view/movie-view":"4tMtF","../login-view/login-view":"4KXCk","../registration-view/registration-view":"1JAbE","react-bootstrap/Row":"3fzwD","react-bootstrap/Col":"2D0r8","react-bootstrap/Nav":"3T3v1","react-bootstrap/Navbar":"3qLFd","react-router-dom":"1PMSK","../director-view/director-view":"19Kyf","../genre-view/genre-view":"1t4nn","../profile-view/profile-view":"20fG5"}],"67PgH":[function(require,module,exports) {
+},{"react":"3b2NM","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","../movie-card/movie-card":"V7mNr","axios":"7rA65","../movie-view/movie-view":"4tMtF","../login-view/login-view":"4KXCk","../registration-view/registration-view":"1JAbE","react-bootstrap/Row":"3fzwD","react-bootstrap/Col":"2D0r8","react-bootstrap/Nav":"3T3v1","react-bootstrap/Navbar":"3qLFd","react-router-dom":"1PMSK","../director-view/director-view":"19Kyf","../genre-view/genre-view":"1t4nn","../profile-view/profile-view":"20fG5","react-bootstrap/Modal":"20uUD","react-bootstrap/Button":"1ru0l"}],"67PgH":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -31682,7 +31805,1494 @@ class ProfileView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","axios":"7rA65","react-bootstrap/Form":"6A5ko","../movie-card/movie-card":"V7mNr","react-bootstrap/Col":"2D0r8","react-bootstrap/Row":"3fzwD"}],"6cAZy":[function() {},{}],"3Mt3t":[function(require,module,exports) {
+},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","axios":"7rA65","react-bootstrap/Form":"6A5ko","../movie-card/movie-card":"V7mNr","react-bootstrap/Col":"2D0r8","react-bootstrap/Row":"3fzwD"}],"20uUD":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var _addEventListener = _interopRequireDefault(require("dom-helpers/addEventListener"));
+var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
+var _ownerDocument = _interopRequireDefault(require("dom-helpers/ownerDocument"));
+var _removeEventListener = _interopRequireDefault(require("dom-helpers/removeEventListener"));
+var _scrollbarSize = _interopRequireDefault(require("dom-helpers/scrollbarSize"));
+var _useCallbackRef2 = _interopRequireDefault(require("@restart/hooks/useCallbackRef"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _useWillUnmount = _interopRequireDefault(require("@restart/hooks/useWillUnmount"));
+var _transitionEnd = _interopRequireDefault(require("dom-helpers/transitionEnd"));
+var _react = _interopRequireWildcard(require("react"));
+var _Modal = _interopRequireDefault(require("react-overlays/Modal"));
+var _warning = _interopRequireDefault(require("warning"));
+var _BootstrapModalManager = _interopRequireDefault(require("./BootstrapModalManager"));
+var _Fade = _interopRequireDefault(require("./Fade"));
+var _ModalBody = _interopRequireDefault(require("./ModalBody"));
+var _ModalContext = _interopRequireDefault(require("./ModalContext"));
+var _ModalDialog = _interopRequireDefault(require("./ModalDialog"));
+var _ModalFooter = _interopRequireDefault(require("./ModalFooter"));
+var _ModalHeader = _interopRequireDefault(require("./ModalHeader"));
+var _ModalTitle = _interopRequireDefault(require("./ModalTitle"));
+var _ThemeProvider = require("./ThemeProvider");
+function _getRequireWildcardCache(nodeInterop) {
+    if (typeof WeakMap !== "function") return null;
+    var cacheBabelInterop = new WeakMap();
+    var cacheNodeInterop = new WeakMap();
+    return (_getRequireWildcardCache = function _getRequireWildcardCache1(nodeInterop1) {
+        return nodeInterop1 ? cacheNodeInterop : cacheBabelInterop;
+    })(nodeInterop);
+}
+function _interopRequireWildcard(obj, nodeInterop) {
+    if (!nodeInterop && obj && obj.__esModule) return obj;
+    if (obj === null || typeof obj !== "object" && typeof obj !== "function") return {
+        default: obj
+    };
+    var cache = _getRequireWildcardCache(nodeInterop);
+    if (cache && cache.has(obj)) return cache.get(obj);
+    var newObj = {
+    };
+    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+    for(var key in obj)if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+        var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+        if (desc && (desc.get || desc.set)) Object.defineProperty(newObj, key, desc);
+        else newObj[key] = obj[key];
+    }
+    newObj.default = obj;
+    if (cache) cache.set(obj, newObj);
+    return newObj;
+}
+var manager;
+var defaultProps = {
+    show: false,
+    backdrop: true,
+    keyboard: true,
+    autoFocus: true,
+    enforceFocus: true,
+    restoreFocus: true,
+    animation: true,
+    dialogAs: _ModalDialog.default
+};
+/* eslint-disable no-use-before-define, react/no-multi-comp */ function DialogTransition(props) {
+    return(/*#__PURE__*/ _react.default.createElement(_Fade.default, props));
+}
+function BackdropTransition(props) {
+    return(/*#__PURE__*/ _react.default.createElement(_Fade.default, props));
+}
+/* eslint-enable no-use-before-define */ var Modal = /*#__PURE__*/ _react.default.forwardRef(function(_ref, ref) {
+    var bsPrefix = _ref.bsPrefix, className = _ref.className, style = _ref.style, dialogClassName = _ref.dialogClassName, contentClassName = _ref.contentClassName, children = _ref.children, Dialog = _ref.dialogAs, ariaLabelledby = _ref['aria-labelledby'], show = _ref.show, animation = _ref.animation, backdrop = _ref.backdrop, keyboard = _ref.keyboard, onEscapeKeyDown = _ref.onEscapeKeyDown, onShow = _ref.onShow, onHide = _ref.onHide, container = _ref.container, autoFocus = _ref.autoFocus, enforceFocus = _ref.enforceFocus, restoreFocus = _ref.restoreFocus, restoreFocusOptions = _ref.restoreFocusOptions, onEntered = _ref.onEntered, onExit = _ref.onExit, onExiting = _ref.onExiting, onEnter = _ref.onEnter, onEntering = _ref.onEntering, onExited = _ref.onExited, backdropClassName = _ref.backdropClassName, propsManager = _ref.manager, props = _objectWithoutPropertiesLoose2.default(_ref, [
+        "bsPrefix",
+        "className",
+        "style",
+        "dialogClassName",
+        "contentClassName",
+        "children",
+        "dialogAs",
+        "aria-labelledby",
+        "show",
+        "animation",
+        "backdrop",
+        "keyboard",
+        "onEscapeKeyDown",
+        "onShow",
+        "onHide",
+        "container",
+        "autoFocus",
+        "enforceFocus",
+        "restoreFocus",
+        "restoreFocusOptions",
+        "onEntered",
+        "onExit",
+        "onExiting",
+        "onEnter",
+        "onEntering",
+        "onExited",
+        "backdropClassName",
+        "manager"
+    ]);
+    var _useState = _react.useState({
+    }), modalStyle = _useState[0], setStyle = _useState[1];
+    var _useState2 = _react.useState(false), animateStaticModal = _useState2[0], setAnimateStaticModal = _useState2[1];
+    var waitingForMouseUpRef = _react.useRef(false);
+    var ignoreBackdropClickRef = _react.useRef(false);
+    var removeStaticModalAnimationRef = _react.useRef(null); // TODO: what's this type
+    var _useCallbackRef = _useCallbackRef2.default(), modal = _useCallbackRef[0], setModalRef = _useCallbackRef[1];
+    var handleHide = _useEventCallback.default(onHide);
+    bsPrefix = _ThemeProvider.useBootstrapPrefix(bsPrefix, 'modal');
+    _react.useImperativeHandle(ref, function() {
+        return {
+            get _modal () {
+                _warning.default(false, 'Accessing `_modal` is not supported and will be removed in a future release');
+                return modal;
+            }
+        };
+    }, [
+        modal
+    ]);
+    var modalContext = _react.useMemo(function() {
+        return {
+            onHide: handleHide
+        };
+    }, [
+        handleHide
+    ]);
+    function getModalManager() {
+        if (propsManager) return propsManager;
+        if (!manager) manager = new _BootstrapModalManager.default();
+        return manager;
+    }
+    function updateDialogStyle(node) {
+        if (!_canUseDOM.default) return;
+        var containerIsOverflowing = getModalManager().isContainerOverflowing(modal);
+        var modalIsOverflowing = node.scrollHeight > _ownerDocument.default(node).documentElement.clientHeight;
+        setStyle({
+            paddingRight: containerIsOverflowing && !modalIsOverflowing ? _scrollbarSize.default() : undefined,
+            paddingLeft: !containerIsOverflowing && modalIsOverflowing ? _scrollbarSize.default() : undefined
+        });
+    }
+    var handleWindowResize = _useEventCallback.default(function() {
+        if (modal) updateDialogStyle(modal.dialog);
+    });
+    _useWillUnmount.default(function() {
+        _removeEventListener.default(window, 'resize', handleWindowResize);
+        if (removeStaticModalAnimationRef.current) removeStaticModalAnimationRef.current();
+    }); // We prevent the modal from closing during a drag by detecting where the
+    // the click originates from. If it starts in the modal and then ends outside
+    // don't close.
+    var handleDialogMouseDown = function handleDialogMouseDown1() {
+        waitingForMouseUpRef.current = true;
+    };
+    var handleMouseUp = function handleMouseUp1(e) {
+        if (waitingForMouseUpRef.current && modal && e.target === modal.dialog) ignoreBackdropClickRef.current = true;
+        waitingForMouseUpRef.current = false;
+    };
+    var handleStaticModalAnimation = function handleStaticModalAnimation1() {
+        setAnimateStaticModal(true);
+        removeStaticModalAnimationRef.current = _transitionEnd.default(modal.dialog, function() {
+            setAnimateStaticModal(false);
+        });
+    };
+    var handleStaticBackdropClick = function handleStaticBackdropClick1(e) {
+        if (e.target !== e.currentTarget) return;
+        handleStaticModalAnimation();
+    };
+    var handleClick = function handleClick1(e) {
+        if (backdrop === 'static') {
+            handleStaticBackdropClick(e);
+            return;
+        }
+        if (ignoreBackdropClickRef.current || e.target !== e.currentTarget) {
+            ignoreBackdropClickRef.current = false;
+            return;
+        }
+        onHide();
+    };
+    var handleEscapeKeyDown = function handleEscapeKeyDown1(e) {
+        if (!keyboard && backdrop === 'static') {
+            // Call preventDefault to stop modal from closing in react-overlays,
+            // then play our animation.
+            e.preventDefault();
+            handleStaticModalAnimation();
+        } else if (keyboard && onEscapeKeyDown) onEscapeKeyDown(e);
+    };
+    var handleEnter = function handleEnter1(node) {
+        if (node) {
+            node.style.display = 'block';
+            updateDialogStyle(node);
+        }
+        for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++)args[_key - 1] = arguments[_key];
+        if (onEnter) onEnter.apply(void 0, [
+            node
+        ].concat(args));
+    };
+    var handleExit = function handleExit1(node) {
+        if (removeStaticModalAnimationRef.current) removeStaticModalAnimationRef.current();
+        for(var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++)args[_key2 - 1] = arguments[_key2];
+        if (onExit) onExit.apply(void 0, [
+            node
+        ].concat(args));
+    };
+    var handleEntering = function handleEntering1(node) {
+        for(var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++)args[_key3 - 1] = arguments[_key3];
+        if (onEntering) onEntering.apply(void 0, [
+            node
+        ].concat(args)); // FIXME: This should work even when animation is disabled.
+        _addEventListener.default(window, 'resize', handleWindowResize);
+    };
+    var handleExited = function handleExited1(node) {
+        if (node) node.style.display = ''; // RHL removes it sometimes
+        for(var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++)args[_key4 - 1] = arguments[_key4];
+        if (onExited) onExited.apply(void 0, args); // FIXME: This should work even when animation is disabled.
+        _removeEventListener.default(window, 'resize', handleWindowResize);
+    };
+    var renderBackdrop = _react.useCallback(function(backdropProps) {
+        return(/*#__PURE__*/ _react.default.createElement("div", _extends2.default({
+        }, backdropProps, {
+            className: _classnames.default(bsPrefix + "-backdrop", backdropClassName, !animation && 'show')
+        })));
+    }, [
+        animation,
+        backdropClassName,
+        bsPrefix
+    ]);
+    var baseModalStyle = _extends2.default({
+    }, style, modalStyle); // Sets `display` always block when `animation` is false
+    if (!animation) baseModalStyle.display = 'block';
+    var renderDialog = function renderDialog1(dialogProps) {
+        return(/*#__PURE__*/ _react.default.createElement("div", _extends2.default({
+            role: "dialog"
+        }, dialogProps, {
+            style: baseModalStyle,
+            className: _classnames.default(className, bsPrefix, animateStaticModal && bsPrefix + "-static"),
+            onClick: backdrop ? handleClick : undefined,
+            onMouseUp: handleMouseUp,
+            "aria-labelledby": ariaLabelledby
+        }), /*#__PURE__*/ _react.default.createElement(Dialog, _extends2.default({
+        }, props, {
+            onMouseDown: handleDialogMouseDown,
+            className: dialogClassName,
+            contentClassName: contentClassName
+        }), children)));
+    };
+    return(/*#__PURE__*/ _react.default.createElement(_ModalContext.default.Provider, {
+        value: modalContext
+    }, /*#__PURE__*/ _react.default.createElement(_Modal.default, {
+        show: show,
+        ref: setModalRef,
+        backdrop: backdrop,
+        container: container,
+        keyboard: true,
+        autoFocus: autoFocus,
+        enforceFocus: enforceFocus,
+        restoreFocus: restoreFocus,
+        restoreFocusOptions: restoreFocusOptions,
+        onEscapeKeyDown: handleEscapeKeyDown,
+        onShow: onShow,
+        onHide: onHide,
+        onEnter: handleEnter,
+        onEntering: handleEntering,
+        onEntered: onEntered,
+        onExit: handleExit,
+        onExiting: onExiting,
+        onExited: handleExited,
+        manager: getModalManager(),
+        containerClassName: bsPrefix + "-open",
+        transition: animation ? DialogTransition : undefined,
+        backdropTransition: animation ? BackdropTransition : undefined,
+        renderBackdrop: renderBackdrop,
+        renderDialog: renderDialog
+    })));
+});
+Modal.displayName = 'Modal';
+Modal.defaultProps = defaultProps;
+Modal.Body = _ModalBody.default;
+Modal.Header = _ModalHeader.default;
+Modal.Title = _ModalTitle.default;
+Modal.Footer = _ModalFooter.default;
+Modal.Dialog = _ModalDialog.default;
+Modal.TRANSITION_DURATION = 300;
+Modal.BACKDROP_TRANSITION_DURATION = 150;
+var _default = Modal;
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","dom-helpers/addEventListener":"7zk2U","dom-helpers/canUseDOM":"5F3oU","dom-helpers/ownerDocument":"Gfx1v","dom-helpers/removeEventListener":"5Umln","dom-helpers/scrollbarSize":"2j9Kc","@restart/hooks/useCallbackRef":"42y11","@restart/hooks/useEventCallback":"3v8B9","@restart/hooks/useWillUnmount":"7ETty","dom-helpers/transitionEnd":"5AWHx","react":"3b2NM","react-overlays/Modal":"D7oEG","warning":"5jojS","./BootstrapModalManager":"5Pqts","./Fade":"2CU5C","./ModalBody":"5Zu6o","./ModalContext":"1nRZY","./ModalDialog":"4OqPY","./ModalFooter":"4rYLN","./ModalHeader":"3Q71Q","./ModalTitle":"MJz12","./ThemeProvider":"4rz1S"}],"2j9Kc":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = scrollbarSize;
+var _canUseDOM = _interopRequireDefault(require("./canUseDOM"));
+var size;
+function scrollbarSize(recalc) {
+    if (!size && size !== 0 || recalc) {
+        if (_canUseDOM.default) {
+            var scrollDiv = document.createElement('div');
+            scrollDiv.style.position = 'absolute';
+            scrollDiv.style.top = '-9999px';
+            scrollDiv.style.width = '50px';
+            scrollDiv.style.height = '50px';
+            scrollDiv.style.overflow = 'scroll';
+            document.body.appendChild(scrollDiv);
+            size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+            document.body.removeChild(scrollDiv);
+        }
+    }
+    return size;
+}
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","./canUseDOM":"5F3oU"}],"42y11":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = useCallbackRef;
+var _react = require("react");
+/**
+ * A convenience hook around `useState` designed to be paired with
+ * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
+ * Callback refs are useful over `useRef()` when you need to respond to the ref being set
+ * instead of lazily accessing it in an effect.
+ *
+ * ```ts
+ * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
+ *
+ * useEffect(() => {
+ *   if (!element) return
+ *
+ *   const calendar = new FullCalendar.Calendar(element)
+ *
+ *   return () => {
+ *     calendar.destroy()
+ *   }
+ * }, [element])
+ *
+ * return <div ref={attachRef} />
+ * ```
+ *
+ * @category refs
+ */ function useCallbackRef() {
+    return _react.useState(null);
+}
+
+},{"react":"3b2NM"}],"7ETty":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = useWillUnmount;
+var _useUpdatedRef = _interopRequireDefault(require("./useUpdatedRef"));
+var _react = require("react");
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+/**
+ * Attach a callback that fires when a component unmounts
+ *
+ * @param fn Handler to run when the component unmounts
+ * @category effects
+ */ function useWillUnmount(fn) {
+    var onUnmount = _useUpdatedRef.default(fn);
+    _react.useEffect(function() {
+        return function() {
+            return onUnmount.current();
+        };
+    }, []);
+}
+
+},{"./useUpdatedRef":"4QfzV","react":"3b2NM"}],"4QfzV":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = useUpdatedRef;
+var _react = require("react");
+/**
+ * Returns a ref that is immediately updated with the new value
+ *
+ * @param value The Ref value
+ * @category refs
+ */ function useUpdatedRef(value) {
+    var valueRef = _react.useRef(value);
+    valueRef.current = value;
+    return valueRef;
+}
+
+},{"react":"3b2NM"}],"D7oEG":[function(require,module,exports) {
+"use strict";
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports["default"] = void 0;
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+var _activeElement = _interopRequireDefault(require("dom-helpers/activeElement"));
+var _contains = _interopRequireDefault(require("dom-helpers/contains"));
+var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
+var _listen = _interopRequireDefault(require("dom-helpers/listen"));
+var _propTypes = _interopRequireDefault(require("prop-types"));
+var _react = _interopRequireWildcard(require("react"));
+var _reactDom = _interopRequireDefault(require("react-dom"));
+var _useMounted = _interopRequireDefault(require("@restart/hooks/useMounted"));
+var _useWillUnmount = _interopRequireDefault(require("@restart/hooks/useWillUnmount"));
+var _usePrevious = _interopRequireDefault(require("@restart/hooks/usePrevious"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _ModalManager = _interopRequireDefault(require("./ModalManager"));
+var _useWaitForDOMRef = _interopRequireDefault(require("./useWaitForDOMRef"));
+/* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */ var manager;
+function getManager() {
+    if (!manager) manager = new _ModalManager["default"]();
+    return manager;
+}
+function useModalManager(provided) {
+    var modalManager = provided || getManager();
+    var modal = _react.useRef({
+        dialog: null,
+        backdrop: null
+    });
+    return Object.assign(modal.current, {
+        add: function add(container, className) {
+            return modalManager.add(modal.current, container, className);
+        },
+        remove: function remove() {
+            return modalManager.remove(modal.current);
+        },
+        isTopModal: function isTopModal() {
+            return modalManager.isTopModal(modal.current);
+        },
+        setDialogRef: _react.useCallback(function(ref) {
+            modal.current.dialog = ref;
+        }, []),
+        setBackdropRef: _react.useCallback(function(ref) {
+            modal.current.backdrop = ref;
+        }, [])
+    });
+}
+var Modal = /*#__PURE__*/ _react.forwardRef(function(_ref, ref) {
+    var _ref$show = _ref.show, show = _ref$show === void 0 ? false : _ref$show, _ref$role = _ref.role, role = _ref$role === void 0 ? 'dialog' : _ref$role, className = _ref.className, style = _ref.style, children = _ref.children, _ref$backdrop = _ref.backdrop, backdrop = _ref$backdrop === void 0 ? true : _ref$backdrop, _ref$keyboard = _ref.keyboard, keyboard = _ref$keyboard === void 0 ? true : _ref$keyboard, onBackdropClick = _ref.onBackdropClick, onEscapeKeyDown = _ref.onEscapeKeyDown, transition = _ref.transition, backdropTransition = _ref.backdropTransition, _ref$autoFocus = _ref.autoFocus, autoFocus = _ref$autoFocus === void 0 ? true : _ref$autoFocus, _ref$enforceFocus = _ref.enforceFocus, enforceFocus = _ref$enforceFocus === void 0 ? true : _ref$enforceFocus, _ref$restoreFocus = _ref.restoreFocus, restoreFocus = _ref$restoreFocus === void 0 ? true : _ref$restoreFocus, restoreFocusOptions = _ref.restoreFocusOptions, renderDialog = _ref.renderDialog, _ref$renderBackdrop = _ref.renderBackdrop, renderBackdrop = _ref$renderBackdrop === void 0 ? function(props) {
+        return(/*#__PURE__*/ _react["default"].createElement("div", props));
+    } : _ref$renderBackdrop, providedManager = _ref.manager, containerRef = _ref.container, containerClassName = _ref.containerClassName, onShow = _ref.onShow, _ref$onHide = _ref.onHide, onHide = _ref$onHide === void 0 ? function() {
+    } : _ref$onHide, onExit = _ref.onExit, onExited = _ref.onExited, onExiting = _ref.onExiting, onEnter = _ref.onEnter, onEntering = _ref.onEntering, onEntered = _ref.onEntered, rest = _objectWithoutPropertiesLoose2["default"](_ref, [
+        "show",
+        "role",
+        "className",
+        "style",
+        "children",
+        "backdrop",
+        "keyboard",
+        "onBackdropClick",
+        "onEscapeKeyDown",
+        "transition",
+        "backdropTransition",
+        "autoFocus",
+        "enforceFocus",
+        "restoreFocus",
+        "restoreFocusOptions",
+        "renderDialog",
+        "renderBackdrop",
+        "manager",
+        "container",
+        "containerClassName",
+        "onShow",
+        "onHide",
+        "onExit",
+        "onExited",
+        "onExiting",
+        "onEnter",
+        "onEntering",
+        "onEntered"
+    ]);
+    var container = _useWaitForDOMRef["default"](containerRef);
+    var modal = useModalManager(providedManager);
+    var isMounted = _useMounted["default"]();
+    var prevShow = _usePrevious["default"](show);
+    var _useState = _react.useState(!show), exited = _useState[0], setExited = _useState[1];
+    var lastFocusRef = _react.useRef(null);
+    _react.useImperativeHandle(ref, function() {
+        return modal;
+    }, [
+        modal
+    ]);
+    if (_canUseDOM["default"] && !prevShow && show) lastFocusRef.current = _activeElement["default"]();
+    if (!transition && !show && !exited) setExited(true);
+    else if (show && exited) setExited(false);
+    var handleShow = _useEventCallback["default"](function() {
+        modal.add(container, containerClassName);
+        removeKeydownListenerRef.current = _listen["default"](document, 'keydown', handleDocumentKeyDown);
+        removeFocusListenerRef.current = _listen["default"](document, 'focus', // and so steals focus from it
+        function() {
+            return setTimeout(handleEnforceFocus);
+        }, true);
+        if (onShow) onShow();
+         // autofocus after onShow to not trigger a focus event for previous
+        // modals before this one is shown.
+        if (autoFocus) {
+            var currentActiveElement = _activeElement["default"](document);
+            if (modal.dialog && currentActiveElement && !_contains["default"](modal.dialog, currentActiveElement)) {
+                lastFocusRef.current = currentActiveElement;
+                modal.dialog.focus();
+            }
+        }
+    });
+    var handleHide = _useEventCallback["default"](function() {
+        modal.remove();
+        removeKeydownListenerRef.current == null || removeKeydownListenerRef.current();
+        removeFocusListenerRef.current == null || removeFocusListenerRef.current();
+        if (restoreFocus) {
+            var _lastFocusRef$current;
+            // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
+            (_lastFocusRef$current = lastFocusRef.current) == null || _lastFocusRef$current.focus == null || _lastFocusRef$current.focus(restoreFocusOptions);
+            lastFocusRef.current = null;
+        }
+    }); // TODO: try and combine these effects: https://github.com/react-bootstrap/react-overlays/pull/794#discussion_r409954120
+    // Show logic when:
+    //  - show is `true` _and_ `container` has resolved
+    _react.useEffect(function() {
+        if (!show || !container) return;
+        handleShow();
+    }, [
+        show,
+        container,
+        /* should never change: */ handleShow
+    ]); // Hide cleanup logic when:
+    //  - `exited` switches to true
+    //  - component unmounts;
+    _react.useEffect(function() {
+        if (!exited) return;
+        handleHide();
+    }, [
+        exited,
+        handleHide
+    ]);
+    _useWillUnmount["default"](function() {
+        handleHide();
+    }); // --------------------------------
+    var handleEnforceFocus = _useEventCallback["default"](function() {
+        if (!enforceFocus || !isMounted() || !modal.isTopModal()) return;
+        var currentActiveElement = _activeElement["default"]();
+        if (modal.dialog && currentActiveElement && !_contains["default"](modal.dialog, currentActiveElement)) modal.dialog.focus();
+    });
+    var handleBackdropClick = _useEventCallback["default"](function(e) {
+        if (e.target !== e.currentTarget) return;
+        onBackdropClick == null || onBackdropClick(e);
+        if (backdrop === true) onHide();
+    });
+    var handleDocumentKeyDown = _useEventCallback["default"](function(e) {
+        if (keyboard && e.keyCode === 27 && modal.isTopModal()) {
+            onEscapeKeyDown == null || onEscapeKeyDown(e);
+            if (!e.defaultPrevented) onHide();
+        }
+    });
+    var removeFocusListenerRef = _react.useRef();
+    var removeKeydownListenerRef = _react.useRef();
+    var handleHidden = function handleHidden1() {
+        setExited(true);
+        for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++)args[_key] = arguments[_key];
+        onExited == null || onExited.apply(void 0, args);
+    };
+    var Transition = transition;
+    if (!container || !(show || Transition && !exited)) return null;
+    var dialogProps = _extends2["default"]({
+        role: role,
+        ref: modal.setDialogRef,
+        // apparently only works on the dialog role element
+        'aria-modal': role === 'dialog' ? true : undefined
+    }, rest, {
+        style: style,
+        className: className,
+        tabIndex: -1
+    });
+    var dialog = renderDialog ? renderDialog(dialogProps) : /*#__PURE__*/ _react["default"].createElement("div", dialogProps, /*#__PURE__*/ _react["default"].cloneElement(children, {
+        role: 'document'
+    }));
+    if (Transition) dialog = /*#__PURE__*/ _react["default"].createElement(Transition, {
+        appear: true,
+        unmountOnExit: true,
+        "in": !!show,
+        onExit: onExit,
+        onExiting: onExiting,
+        onExited: handleHidden,
+        onEnter: onEnter,
+        onEntering: onEntering,
+        onEntered: onEntered
+    }, dialog);
+    var backdropElement = null;
+    if (backdrop) {
+        var BackdropTransition = backdropTransition;
+        backdropElement = renderBackdrop({
+            ref: modal.setBackdropRef,
+            onClick: handleBackdropClick
+        });
+        if (BackdropTransition) backdropElement = /*#__PURE__*/ _react["default"].createElement(BackdropTransition, {
+            appear: true,
+            "in": !!show
+        }, backdropElement);
+    }
+    return(/*#__PURE__*/ _react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/ _reactDom["default"].createPortal(/*#__PURE__*/ _react["default"].createElement(_react["default"].Fragment, null, backdropElement, dialog), container)));
+});
+var propTypes = {
+    /**
+   * Set the visibility of the Modal
+   */ show: _propTypes["default"].bool,
+    /**
+   * A DOM element, a `ref` to an element, or function that returns either. The Modal is appended to it's `container` element.
+   *
+   * For the sake of assistive technologies, the container should usually be the document body, so that the rest of the
+   * page content can be placed behind a virtual backdrop as well as a visual one.
+   */ container: _propTypes["default"].any,
+    /**
+   * A callback fired when the Modal is opening.
+   */ onShow: _propTypes["default"].func,
+    /**
+   * A callback fired when either the backdrop is clicked, or the escape key is pressed.
+   *
+   * The `onHide` callback only signals intent from the Modal,
+   * you must actually set the `show` prop to `false` for the Modal to close.
+   */ onHide: _propTypes["default"].func,
+    /**
+   * Include a backdrop component.
+   */ backdrop: _propTypes["default"].oneOfType([
+        _propTypes["default"].bool,
+        _propTypes["default"].oneOf([
+            'static'
+        ])
+    ]),
+    /**
+   * A function that returns the dialog component. Useful for custom
+   * rendering. **Note:** the component should make sure to apply the provided ref.
+   *
+   * ```js static
+   * renderDialog={props => <MyDialog {...props} />}
+   * ```
+   */ renderDialog: _propTypes["default"].func,
+    /**
+   * A function that returns a backdrop component. Useful for custom
+   * backdrop rendering.
+   *
+   * ```js
+   *  renderBackdrop={props => <MyBackdrop {...props} />}
+   * ```
+   */ renderBackdrop: _propTypes["default"].func,
+    /**
+   * A callback fired when the escape key, if specified in `keyboard`, is pressed.
+   *
+   * If preventDefault() is called on the keyboard event, closing the modal will be cancelled.
+   */ onEscapeKeyDown: _propTypes["default"].func,
+    /**
+   * A callback fired when the backdrop, if specified, is clicked.
+   */ onBackdropClick: _propTypes["default"].func,
+    /**
+   * A css class or set of classes applied to the modal container when the modal is open,
+   * and removed when it is closed.
+   */ containerClassName: _propTypes["default"].string,
+    /**
+   * Close the modal when escape key is pressed
+   */ keyboard: _propTypes["default"].bool,
+    /**
+   * A `react-transition-group@2.0.0` `<Transition/>` component used
+   * to control animations for the dialog component.
+   */ transition: _propTypes["default"].elementType,
+    /**
+   * A `react-transition-group@2.0.0` `<Transition/>` component used
+   * to control animations for the backdrop components.
+   */ backdropTransition: _propTypes["default"].elementType,
+    /**
+   * When `true` The modal will automatically shift focus to itself when it opens, and
+   * replace it to the last focused element when it closes. This also
+   * works correctly with any Modal children that have the `autoFocus` prop.
+   *
+   * Generally this should never be set to `false` as it makes the Modal less
+   * accessible to assistive technologies, like screen readers.
+   */ autoFocus: _propTypes["default"].bool,
+    /**
+   * When `true` The modal will prevent focus from leaving the Modal while open.
+   *
+   * Generally this should never be set to `false` as it makes the Modal less
+   * accessible to assistive technologies, like screen readers.
+   */ enforceFocus: _propTypes["default"].bool,
+    /**
+   * When `true` The modal will restore focus to previously focused element once
+   * modal is hidden
+   */ restoreFocus: _propTypes["default"].bool,
+    /**
+   * Options passed to focus function when `restoreFocus` is set to `true`
+   *
+   * @link  https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#Parameters
+   */ restoreFocusOptions: _propTypes["default"].shape({
+        preventScroll: _propTypes["default"].bool
+    }),
+    /**
+   * Callback fired before the Modal transitions in
+   */ onEnter: _propTypes["default"].func,
+    /**
+   * Callback fired as the Modal begins to transition in
+   */ onEntering: _propTypes["default"].func,
+    /**
+   * Callback fired after the Modal finishes transitioning in
+   */ onEntered: _propTypes["default"].func,
+    /**
+   * Callback fired right before the Modal transitions out
+   */ onExit: _propTypes["default"].func,
+    /**
+   * Callback fired as the Modal begins to transition out
+   */ onExiting: _propTypes["default"].func,
+    /**
+   * Callback fired after the Modal finishes transitioning out
+   */ onExited: _propTypes["default"].func,
+    /**
+   * A ModalManager instance used to track and manage the state of open
+   * Modals. Useful when customizing how modals interact within a container
+   */ manager: _propTypes["default"].instanceOf(_ModalManager["default"])
+};
+Modal.displayName = 'Modal';
+Modal.propTypes = propTypes;
+var _default = Object.assign(Modal, {
+    Manager: _ModalManager["default"]
+});
+exports["default"] = _default;
+module.exports = exports.default;
+
+},{"@babel/runtime/helpers/interopRequireWildcard":"28En5","@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","dom-helpers/activeElement":"4WEPY","dom-helpers/contains":"1V5Mf","dom-helpers/canUseDOM":"5F3oU","dom-helpers/listen":"2RWZU","prop-types":"4dfy5","react":"3b2NM","react-dom":"2sg1U","@restart/hooks/useMounted":"zBXH6","@restart/hooks/useWillUnmount":"7ETty","@restart/hooks/usePrevious":"7bQ4k","@restart/hooks/useEventCallback":"3v8B9","./ModalManager":"1DuSl","./useWaitForDOMRef":"7K0Mu"}],"4WEPY":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = activeElement;
+var _ownerDocument = _interopRequireDefault(require("./ownerDocument"));
+/**
+ * Returns the actively focused element safely.
+ *
+ * @param doc the document to check
+ */ function activeElement(doc) {
+    if (doc === void 0) doc = _ownerDocument.default();
+    // Support: IE 9 only
+    // IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
+    try {
+        var active = doc.activeElement; // IE11 returns a seemingly empty object in some cases when accessing
+        // document.activeElement from an <iframe>
+        if (!active || !active.nodeName) return null;
+        return active;
+    } catch (e) {
+        /* ie throws if no active element */ return doc.body;
+    }
+}
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","./ownerDocument":"Gfx1v"}],"1V5Mf":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = contains;
+/* eslint-disable no-bitwise, no-cond-assign */ /**
+ * Checks if an element contains another given element.
+ * 
+ * @param context the context element
+ * @param node the element to check
+ */ function contains(context, node) {
+    // HTML DOM and SVG DOM may have different support levels,
+    // so we need to check on context instead of a document root element.
+    if (context.contains) return context.contains(node);
+    if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
+}
+module.exports = exports["default"];
+
+},{}],"zBXH6":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = useMounted;
+var _react = require("react");
+/**
+ * Track whether a component is current mounted. Generally less preferable than
+ * properlly canceling effects so they don't run after a component is unmounted,
+ * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
+ *
+ * @returns a function that returns the current isMounted state of the component
+ *
+ * ```ts
+ * const [data, setData] = useState(null)
+ * const isMounted = useMounted()
+ *
+ * useEffect(() => {
+ *   fetchdata().then((newData) => {
+ *      if (isMounted()) {
+ *        setData(newData);
+ *      }
+ *   })
+ * })
+ * ```
+ */ function useMounted() {
+    var mounted = _react.useRef(true);
+    var isMounted = _react.useRef(function() {
+        return mounted.current;
+    });
+    _react.useEffect(function() {
+        return function() {
+            mounted.current = false;
+        };
+    }, []);
+    return isMounted.current;
+}
+
+},{"react":"3b2NM"}],"7bQ4k":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = usePrevious;
+var _react = require("react");
+/**
+ * Store the last of some value. Tracked via a `Ref` only updating it
+ * after the component renders.
+ *
+ * Helpful if you need to compare a prop value to it's previous value during render.
+ *
+ * ```ts
+ * function Component(props) {
+ *   const lastProps = usePrevious(props)
+ *
+ *   if (lastProps.foo !== props.foo)
+ *     resetValueFromProps(props.foo)
+ * }
+ * ```
+ *
+ * @param value the value to track
+ */ function usePrevious(value) {
+    var ref = _react.useRef(null);
+    _react.useEffect(function() {
+        ref.current = value;
+    });
+    return ref.current;
+}
+
+},{"react":"3b2NM"}],"1DuSl":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports["default"] = void 0;
+var _addClass = _interopRequireDefault(require("dom-helpers/addClass"));
+var _removeClass = _interopRequireDefault(require("dom-helpers/removeClass"));
+var _css = _interopRequireDefault(require("dom-helpers/css"));
+var _scrollbarSize = _interopRequireDefault(require("dom-helpers/scrollbarSize"));
+var _isOverflowing = _interopRequireDefault(require("./isOverflowing"));
+var _manageAriaHidden = require("./manageAriaHidden");
+function findIndexOf(arr, cb) {
+    var idx = -1;
+    arr.some(function(d, i) {
+        if (cb(d, i)) {
+            idx = i;
+            return true;
+        }
+        return false;
+    });
+    return idx;
+}
+/**
+ * Proper state management for containers and the modals in those containers.
+ *
+ * @internal Used by the Modal to ensure proper styling of containers.
+ */ var ModalManager = /*#__PURE__*/ function() {
+    function ModalManager1(_temp) {
+        var _ref = _temp === void 0 ? {
+        } : _temp, _ref$hideSiblingNodes = _ref.hideSiblingNodes, hideSiblingNodes = _ref$hideSiblingNodes === void 0 ? true : _ref$hideSiblingNodes, _ref$handleContainerO = _ref.handleContainerOverflow, handleContainerOverflow = _ref$handleContainerO === void 0 ? true : _ref$handleContainerO;
+        this.hideSiblingNodes = void 0;
+        this.handleContainerOverflow = void 0;
+        this.modals = void 0;
+        this.containers = void 0;
+        this.data = void 0;
+        this.scrollbarSize = void 0;
+        this.hideSiblingNodes = hideSiblingNodes;
+        this.handleContainerOverflow = handleContainerOverflow;
+        this.modals = [];
+        this.containers = [];
+        this.data = [];
+        this.scrollbarSize = _scrollbarSize["default"]();
+    }
+    var _proto = ModalManager1.prototype;
+    _proto.isContainerOverflowing = function isContainerOverflowing(modal) {
+        var data = this.data[this.containerIndexFromModal(modal)];
+        return data && data.overflowing;
+    };
+    _proto.containerIndexFromModal = function containerIndexFromModal(modal) {
+        return findIndexOf(this.data, function(d) {
+            return d.modals.indexOf(modal) !== -1;
+        });
+    };
+    _proto.setContainerStyle = function setContainerStyle(containerState, container) {
+        var style = {
+            overflow: 'hidden'
+        }; // we are only interested in the actual `style` here
+        // because we will override it
+        containerState.style = {
+            overflow: container.style.overflow,
+            paddingRight: container.style.paddingRight
+        };
+        if (containerState.overflowing) // use computed style, here to get the real padding
+        // to add our scrollbar width
+        style.paddingRight = parseInt(_css["default"](container, 'paddingRight') || '0', 10) + this.scrollbarSize + "px";
+        _css["default"](container, style);
+    };
+    _proto.removeContainerStyle = function removeContainerStyle(containerState, container) {
+        Object.assign(container.style, containerState.style);
+    };
+    _proto.add = function add(modal, container, className) {
+        var modalIdx = this.modals.indexOf(modal);
+        var containerIdx = this.containers.indexOf(container);
+        if (modalIdx !== -1) return modalIdx;
+        modalIdx = this.modals.length;
+        this.modals.push(modal);
+        if (this.hideSiblingNodes) _manageAriaHidden.hideSiblings(container, modal);
+        if (containerIdx !== -1) {
+            this.data[containerIdx].modals.push(modal);
+            return modalIdx;
+        }
+        var data = {
+            modals: [
+                modal
+            ],
+            // right now only the first modal of a container will have its classes applied
+            classes: className ? className.split(/\s+/) : [],
+            overflowing: _isOverflowing["default"](container)
+        };
+        if (this.handleContainerOverflow) this.setContainerStyle(data, container);
+        data.classes.forEach(_addClass["default"].bind(null, container));
+        this.containers.push(container);
+        this.data.push(data);
+        return modalIdx;
+    };
+    _proto.remove = function remove(modal) {
+        var modalIdx = this.modals.indexOf(modal);
+        if (modalIdx === -1) return;
+        var containerIdx = this.containerIndexFromModal(modal);
+        var data = this.data[containerIdx];
+        var container = this.containers[containerIdx];
+        data.modals.splice(data.modals.indexOf(modal), 1);
+        this.modals.splice(modalIdx, 1); // if that was the last modal in a container,
+        // clean up the container
+        if (data.modals.length === 0) {
+            data.classes.forEach(_removeClass["default"].bind(null, container));
+            if (this.handleContainerOverflow) this.removeContainerStyle(data, container);
+            if (this.hideSiblingNodes) _manageAriaHidden.showSiblings(container, modal);
+            this.containers.splice(containerIdx, 1);
+            this.data.splice(containerIdx, 1);
+        } else if (this.hideSiblingNodes) {
+            // otherwise make sure the next top modal is visible to a SR
+            var _data$modals = data.modals[data.modals.length - 1], backdrop = _data$modals.backdrop, dialog = _data$modals.dialog;
+            _manageAriaHidden.ariaHidden(false, dialog);
+            _manageAriaHidden.ariaHidden(false, backdrop);
+        }
+    };
+    _proto.isTopModal = function isTopModal(modal) {
+        return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
+    };
+    return ModalManager1;
+}();
+var _default = ModalManager;
+exports["default"] = _default;
+module.exports = exports.default;
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","dom-helpers/addClass":"fPuIg","dom-helpers/removeClass":"2efO8","dom-helpers/css":"2pCMM","dom-helpers/scrollbarSize":"2j9Kc","./isOverflowing":"4GmFo","./manageAriaHidden":"7CwPJ"}],"fPuIg":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = addClass;
+var _hasClass = _interopRequireDefault(require("./hasClass"));
+/**
+ * Adds a CSS class to a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */ function addClass(element, className) {
+    if (element.classList) element.classList.add(className);
+    else if (!_hasClass.default(element, className)) {
+        if (typeof element.className === 'string') element.className = element.className + " " + className;
+        else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
+    }
+}
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","./hasClass":"48whN"}],"48whN":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = hasClass;
+/**
+ * Checks if a given element has a CSS class.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */ function hasClass(element, className) {
+    if (element.classList) return !!className && element.classList.contains(className);
+    return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
+}
+module.exports = exports["default"];
+
+},{}],"2efO8":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = removeClass;
+function replaceClassName(origClass, classToRemove) {
+    return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
+}
+/**
+ * Removes a CSS class from a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */ function removeClass(element, className) {
+    if (element.classList) element.classList.remove(className);
+    else if (typeof element.className === 'string') element.className = replaceClassName(element.className, className);
+    else element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
+}
+module.exports = exports["default"];
+
+},{}],"4GmFo":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports["default"] = isOverflowing;
+var _isWindow = _interopRequireDefault(require("dom-helpers/isWindow"));
+var _ownerDocument = _interopRequireDefault(require("dom-helpers/ownerDocument"));
+function isBody(node) {
+    return node && node.tagName.toLowerCase() === 'body';
+}
+function bodyIsOverflowing(node) {
+    var doc = _isWindow["default"](node) ? _ownerDocument["default"]() : _ownerDocument["default"](node);
+    var win = _isWindow["default"](node) || doc.defaultView;
+    return doc.body.clientWidth < win.innerWidth;
+}
+function isOverflowing(container) {
+    var win = _isWindow["default"](container);
+    return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
+}
+module.exports = exports.default;
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","dom-helpers/isWindow":"D0IGR","dom-helpers/ownerDocument":"Gfx1v"}],"D0IGR":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = isWindow;
+var _isDocument = _interopRequireDefault(require("./isDocument"));
+function isWindow(node) {
+    if ('window' in node && node.window === node) return node;
+    if (_isDocument.default(node)) return node.defaultView || false;
+    return false;
+}
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","./isDocument":"3d4ah"}],"3d4ah":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.default = isDocument;
+function isDocument(element) {
+    return 'nodeType' in element && element.nodeType === document.DOCUMENT_NODE;
+}
+module.exports = exports["default"];
+
+},{}],"7CwPJ":[function(require,module,exports) {
+"use strict";
+exports.__esModule = true;
+exports.ariaHidden = ariaHidden;
+exports.hideSiblings = hideSiblings;
+exports.showSiblings = showSiblings;
+var BLACKLIST = [
+    'template',
+    'script',
+    'style'
+];
+var isHidable = function isHidable1(_ref) {
+    var nodeType = _ref.nodeType, tagName = _ref.tagName;
+    return nodeType === 1 && BLACKLIST.indexOf(tagName.toLowerCase()) === -1;
+};
+var siblings = function siblings1(container, exclude, cb) {
+    [].forEach.call(container.children, function(node) {
+        if (exclude.indexOf(node) === -1 && isHidable(node)) cb(node);
+    });
+};
+function ariaHidden(hide, node) {
+    if (!node) return;
+    if (hide) node.setAttribute('aria-hidden', 'true');
+    else node.removeAttribute('aria-hidden');
+}
+function hideSiblings(container, _ref2) {
+    var dialog = _ref2.dialog, backdrop = _ref2.backdrop;
+    siblings(container, [
+        dialog,
+        backdrop
+    ], function(node) {
+        return ariaHidden(true, node);
+    });
+}
+function showSiblings(container, _ref3) {
+    var dialog = _ref3.dialog, backdrop = _ref3.backdrop;
+    siblings(container, [
+        dialog,
+        backdrop
+    ], function(node) {
+        return ariaHidden(false, node);
+    });
+}
+
+},{}],"7K0Mu":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports["default"] = useWaitForDOMRef;
+exports.resolveContainerRef = void 0;
+var _ownerDocument = _interopRequireDefault(require("dom-helpers/ownerDocument"));
+var _react = require("react");
+var resolveContainerRef = function resolveContainerRef1(ref) {
+    var _ref;
+    if (typeof document === 'undefined') return null;
+    if (ref == null) return _ownerDocument["default"]().body;
+    if (typeof ref === 'function') ref = ref();
+    if (ref && 'current' in ref) ref = ref.current;
+    if ((_ref = ref) != null && _ref.nodeType) return ref || null;
+    return null;
+};
+exports.resolveContainerRef = resolveContainerRef;
+function useWaitForDOMRef(ref, onResolved) {
+    var _useState = _react.useState(function() {
+        return resolveContainerRef(ref);
+    }), resolvedRef = _useState[0], setRef = _useState[1];
+    if (!resolvedRef) {
+        var earlyRef = resolveContainerRef(ref);
+        if (earlyRef) setRef(earlyRef);
+    }
+    _react.useEffect(function() {
+        if (onResolved && resolvedRef) onResolved(resolvedRef);
+    }, [
+        onResolved,
+        resolvedRef
+    ]);
+    _react.useEffect(function() {
+        var nextRef = resolveContainerRef(ref);
+        if (nextRef !== resolvedRef) setRef(nextRef);
+    }, [
+        ref,
+        resolvedRef
+    ]);
+    return resolvedRef;
+}
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","dom-helpers/ownerDocument":"Gfx1v","react":"3b2NM"}],"5Pqts":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
+var _css3 = _interopRequireDefault(require("dom-helpers/css"));
+var _querySelectorAll = _interopRequireDefault(require("dom-helpers/querySelectorAll"));
+var _scrollbarSize = _interopRequireDefault(require("dom-helpers/scrollbarSize"));
+var _ModalManager2 = _interopRequireDefault(require("react-overlays/ModalManager"));
+var Selector = {
+    FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+    STICKY_CONTENT: '.sticky-top',
+    NAVBAR_TOGGLER: '.navbar-toggler'
+};
+var BootstrapModalManager1 = /*#__PURE__*/ function(_ModalManager) {
+    _inheritsLoose2.default(BootstrapModalManager2, _ModalManager);
+    function BootstrapModalManager2() {
+        return _ModalManager.apply(this, arguments) || this;
+    }
+    var _proto = BootstrapModalManager2.prototype;
+    _proto.adjustAndStore = function adjustAndStore(prop, element, adjust) {
+        var _css;
+        var actual = element.style[prop]; // TODO: DOMStringMap and CSSStyleDeclaration aren't strictly compatible
+        // @ts-ignore
+        element.dataset[prop] = actual;
+        _css3.default(element, (_css = {
+        }, _css[prop] = parseFloat(_css3.default(element, prop)) + adjust + "px", _css));
+    };
+    _proto.restore = function restore(prop, element) {
+        var value = element.dataset[prop];
+        if (value !== undefined) {
+            var _css2;
+            delete element.dataset[prop];
+            _css3.default(element, (_css2 = {
+            }, _css2[prop] = value, _css2));
+        }
+    };
+    _proto.setContainerStyle = function setContainerStyle(containerState, container) {
+        var _this = this;
+        _ModalManager.prototype.setContainerStyle.call(this, containerState, container);
+        if (!containerState.overflowing) return;
+        var size = _scrollbarSize.default();
+        _querySelectorAll.default(container, Selector.FIXED_CONTENT).forEach(function(el) {
+            return _this.adjustAndStore('paddingRight', el, size);
+        });
+        _querySelectorAll.default(container, Selector.STICKY_CONTENT).forEach(function(el) {
+            return _this.adjustAndStore('marginRight', el, -size);
+        });
+        _querySelectorAll.default(container, Selector.NAVBAR_TOGGLER).forEach(function(el) {
+            return _this.adjustAndStore('marginRight', el, size);
+        });
+    };
+    _proto.removeContainerStyle = function removeContainerStyle(containerState, container) {
+        var _this2 = this;
+        _ModalManager.prototype.removeContainerStyle.call(this, containerState, container);
+        _querySelectorAll.default(container, Selector.FIXED_CONTENT).forEach(function(el) {
+            return _this2.restore('paddingRight', el);
+        });
+        _querySelectorAll.default(container, Selector.STICKY_CONTENT).forEach(function(el) {
+            return _this2.restore('marginRight', el);
+        });
+        _querySelectorAll.default(container, Selector.NAVBAR_TOGGLER).forEach(function(el) {
+            return _this2.restore('marginRight', el);
+        });
+    };
+    return BootstrapModalManager2;
+}(_ModalManager2.default);
+exports.default = BootstrapModalManager1;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/inheritsLoose":"01QUt","dom-helpers/css":"2pCMM","dom-helpers/querySelectorAll":"54Bk2","dom-helpers/scrollbarSize":"2j9Kc","react-overlays/ModalManager":"1DuSl"}],"2CU5C":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var _react = _interopRequireWildcard(require("react"));
+var _Transition = _interopRequireWildcard(require("react-transition-group/Transition"));
+var _transitionEndListener = _interopRequireDefault(require("./transitionEndListener"));
+var _triggerBrowserReflow = _interopRequireDefault(require("./triggerBrowserReflow"));
+var _fadeStyles;
+function _getRequireWildcardCache(nodeInterop) {
+    if (typeof WeakMap !== "function") return null;
+    var cacheBabelInterop = new WeakMap();
+    var cacheNodeInterop = new WeakMap();
+    return (_getRequireWildcardCache = function _getRequireWildcardCache1(nodeInterop1) {
+        return nodeInterop1 ? cacheNodeInterop : cacheBabelInterop;
+    })(nodeInterop);
+}
+function _interopRequireWildcard(obj, nodeInterop) {
+    if (!nodeInterop && obj && obj.__esModule) return obj;
+    if (obj === null || typeof obj !== "object" && typeof obj !== "function") return {
+        default: obj
+    };
+    var cache = _getRequireWildcardCache(nodeInterop);
+    if (cache && cache.has(obj)) return cache.get(obj);
+    var newObj = {
+    };
+    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+    for(var key in obj)if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+        var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+        if (desc && (desc.get || desc.set)) Object.defineProperty(newObj, key, desc);
+        else newObj[key] = obj[key];
+    }
+    newObj.default = obj;
+    if (cache) cache.set(obj, newObj);
+    return newObj;
+}
+var defaultProps = {
+    in: false,
+    timeout: 300,
+    mountOnEnter: false,
+    unmountOnExit: false,
+    appear: false
+};
+var fadeStyles = (_fadeStyles = {
+}, _fadeStyles[_Transition.ENTERING] = 'show', _fadeStyles[_Transition.ENTERED] = 'show', _fadeStyles);
+var Fade = /*#__PURE__*/ _react.default.forwardRef(function(_ref, ref) {
+    var className = _ref.className, children = _ref.children, props = _objectWithoutPropertiesLoose2.default(_ref, [
+        "className",
+        "children"
+    ]);
+    var handleEnter = _react.useCallback(function(node) {
+        _triggerBrowserReflow.default(node);
+        if (props.onEnter) props.onEnter(node);
+    }, [
+        props
+    ]);
+    return(/*#__PURE__*/ _react.default.createElement(_Transition.default, _extends2.default({
+        ref: ref,
+        addEndListener: _transitionEndListener.default
+    }, props, {
+        onEnter: handleEnter
+    }), function(status, innerProps) {
+        return(/*#__PURE__*/ _react.default.cloneElement(children, _extends2.default({
+        }, innerProps, {
+            className: _classnames.default('fade', className, children.props.className, fadeStyles[status])
+        })));
+    }));
+});
+Fade.defaultProps = defaultProps;
+Fade.displayName = 'Fade';
+var _default = Fade;
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","react":"3b2NM","react-transition-group/Transition":"Z6Vyq","./transitionEndListener":"7vbS0","./triggerBrowserReflow":"dj3Zh"}],"5Zu6o":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _default = _createWithBsPrefix.default('modal-body');
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","./createWithBsPrefix":"2oVVc"}],"1nRZY":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var ModalContext = /*#__PURE__*/ _react.default.createContext({
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onHide: function onHide() {
+    }
+});
+var _default = ModalContext;
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","react":"3b2NM"}],"4OqPY":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var _react = _interopRequireDefault(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var ModalDialog = /*#__PURE__*/ _react.default.forwardRef(function(_ref, ref) {
+    var bsPrefix = _ref.bsPrefix, className = _ref.className, contentClassName = _ref.contentClassName, centered = _ref.centered, size = _ref.size, children = _ref.children, scrollable = _ref.scrollable, props = _objectWithoutPropertiesLoose2.default(_ref, [
+        "bsPrefix",
+        "className",
+        "contentClassName",
+        "centered",
+        "size",
+        "children",
+        "scrollable"
+    ]);
+    bsPrefix = _ThemeProvider.useBootstrapPrefix(bsPrefix, 'modal');
+    var dialogClass = bsPrefix + "-dialog";
+    return(/*#__PURE__*/ _react.default.createElement("div", _extends2.default({
+    }, props, {
+        ref: ref,
+        className: _classnames.default(dialogClass, className, size && bsPrefix + "-" + size, centered && dialogClass + "-centered", scrollable && dialogClass + "-scrollable")
+    }), /*#__PURE__*/ _react.default.createElement("div", {
+        className: _classnames.default(bsPrefix + "-content", contentClassName)
+    }, children)));
+});
+ModalDialog.displayName = 'ModalDialog';
+var _default = ModalDialog;
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","react":"3b2NM","./ThemeProvider":"4rz1S"}],"4rYLN":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _default = _createWithBsPrefix.default('modal-footer');
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","./createWithBsPrefix":"2oVVc"}],"3Q71Q":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var _react = _interopRequireWildcard(require("react"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _ThemeProvider = require("./ThemeProvider");
+var _CloseButton = _interopRequireDefault(require("./CloseButton"));
+var _ModalContext = _interopRequireDefault(require("./ModalContext"));
+function _getRequireWildcardCache(nodeInterop) {
+    if (typeof WeakMap !== "function") return null;
+    var cacheBabelInterop = new WeakMap();
+    var cacheNodeInterop = new WeakMap();
+    return (_getRequireWildcardCache = function _getRequireWildcardCache1(nodeInterop1) {
+        return nodeInterop1 ? cacheNodeInterop : cacheBabelInterop;
+    })(nodeInterop);
+}
+function _interopRequireWildcard(obj, nodeInterop) {
+    if (!nodeInterop && obj && obj.__esModule) return obj;
+    if (obj === null || typeof obj !== "object" && typeof obj !== "function") return {
+        default: obj
+    };
+    var cache = _getRequireWildcardCache(nodeInterop);
+    if (cache && cache.has(obj)) return cache.get(obj);
+    var newObj = {
+    };
+    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+    for(var key in obj)if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+        var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+        if (desc && (desc.get || desc.set)) Object.defineProperty(newObj, key, desc);
+        else newObj[key] = obj[key];
+    }
+    newObj.default = obj;
+    if (cache) cache.set(obj, newObj);
+    return newObj;
+}
+var defaultProps = {
+    closeLabel: 'Close',
+    closeButton: false
+};
+var ModalHeader = /*#__PURE__*/ _react.default.forwardRef(function(_ref, ref) {
+    var bsPrefix = _ref.bsPrefix, closeLabel = _ref.closeLabel, closeButton = _ref.closeButton, onHide = _ref.onHide, className = _ref.className, children = _ref.children, props = _objectWithoutPropertiesLoose2.default(_ref, [
+        "bsPrefix",
+        "closeLabel",
+        "closeButton",
+        "onHide",
+        "className",
+        "children"
+    ]);
+    bsPrefix = _ThemeProvider.useBootstrapPrefix(bsPrefix, 'modal-header');
+    var context = _react.useContext(_ModalContext.default);
+    var handleClick = _useEventCallback.default(function() {
+        if (context) context.onHide();
+        if (onHide) onHide();
+    });
+    return(/*#__PURE__*/ _react.default.createElement("div", _extends2.default({
+        ref: ref
+    }, props, {
+        className: _classnames.default(className, bsPrefix)
+    }), children, closeButton && /*#__PURE__*/ _react.default.createElement(_CloseButton.default, {
+        label: closeLabel,
+        onClick: handleClick
+    })));
+});
+ModalHeader.displayName = 'ModalHeader';
+ModalHeader.defaultProps = defaultProps;
+var _default = ModalHeader;
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","classnames":"5aJRc","react":"3b2NM","@restart/hooks/useEventCallback":"3v8B9","./ThemeProvider":"4rz1S","./CloseButton":"yWShL","./ModalContext":"1nRZY"}],"yWShL":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+var _propTypes = _interopRequireDefault(require("prop-types"));
+var _react = _interopRequireDefault(require("react"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var propTypes = {
+    label: _propTypes.default.string.isRequired,
+    onClick: _propTypes.default.func
+};
+var defaultProps = {
+    label: 'Close'
+};
+var CloseButton = /*#__PURE__*/ _react.default.forwardRef(function(_ref, ref) {
+    var label = _ref.label, onClick = _ref.onClick, className = _ref.className, props = _objectWithoutPropertiesLoose2.default(_ref, [
+        "label",
+        "onClick",
+        "className"
+    ]);
+    return(/*#__PURE__*/ _react.default.createElement("button", _extends2.default({
+        ref: ref,
+        type: "button",
+        className: _classnames.default('close', className),
+        onClick: onClick
+    }, props), /*#__PURE__*/ _react.default.createElement("span", {
+        "aria-hidden": "true"
+    }, "\xD7"), /*#__PURE__*/ _react.default.createElement("span", {
+        className: "sr-only"
+    }, label)));
+});
+CloseButton.displayName = 'CloseButton';
+CloseButton.propTypes = propTypes;
+CloseButton.defaultProps = defaultProps;
+var _default = CloseButton;
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","@babel/runtime/helpers/extends":"3krLJ","@babel/runtime/helpers/objectWithoutPropertiesLoose":"3Yx9V","prop-types":"4dfy5","react":"3b2NM","classnames":"5aJRc"}],"MJz12":[function(require,module,exports) {
+"use strict";
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+exports.__esModule = true;
+exports.default = void 0;
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
+var DivStyledAsH4 = _divWithClassName.default('h4');
+var _default = _createWithBsPrefix.default('modal-title', {
+    Component: DivStyledAsH4
+});
+exports.default = _default;
+module.exports = exports["default"];
+
+},{"@babel/runtime/helpers/interopRequireDefault":"4ttVj","./createWithBsPrefix":"2oVVc","./divWithClassName":"27J3S"}],"6cAZy":[function() {},{}],"3Mt3t":[function(require,module,exports) {
 "use strict";
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 exports.__esModule = true;
