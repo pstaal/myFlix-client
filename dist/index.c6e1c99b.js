@@ -28798,8 +28798,14 @@ function RegistrationView(props) {
     const [password, setPassword] = _react.useState('');
     const [email, setEmail] = _react.useState('');
     const [birthDate, setBirthDate] = _react.useState('');
+    const [validated, setValidated] = _react.useState(false);
     const handleRegister = (e)=>{
-        e.preventDefault();
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setValidated(true);
         _axiosDefault.default.post('https://whispering-journey-40194.herokuapp.com/users', {
             Username: username,
             Password: password,
@@ -28814,59 +28820,16 @@ function RegistrationView(props) {
         });
     };
     return(/*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default, {
+        noValidate: true,
+        validated: validated,
+        onSubmit: handleRegister,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 32
+            lineNumber: 40
         },
         __self: this
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
         controlId: "formUsername",
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 33
-        },
-        __self: this
-    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 34
-        },
-        __self: this
-    }, "Username:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
-        type: "text",
-        value: username,
-        onChange: (e)=>setUsername(e.target.value)
-        ,
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 35
-        },
-        __self: this
-    })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
-        controlId: "formPassword",
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 37
-        },
-        __self: this
-    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 38
-        },
-        __self: this
-    }, "Password:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
-        type: "text",
-        value: password,
-        onChange: (e)=>setPassword(e.target.value)
-        ,
-        __source: {
-            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 39
-        },
-        __self: this
-    })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
-        controlId: "formEmail",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
             lineNumber: 41
@@ -28875,30 +28838,100 @@ function RegistrationView(props) {
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 42
+        },
+        __self: this
+    }, "Username:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
+        required: true,
+        pattern: "[a-zA-Z0-9s]+",
+        type: "text",
+        value: username,
+        onChange: (e)=>setUsername(e.target.value)
+        ,
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
             lineNumber: 43
         },
         __self: this
-    }, "email:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
-        type: "text",
-        value: email,
-        onChange: (e)=>setEmail(e.target.value)
-        ,
+    }), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control.Feedback, {
+        type: "invalid",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
             lineNumber: 44
         },
         __self: this
-    })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
-        controlId: "formBirthDate",
+    }, "Please provide a full username.")), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
+        controlId: "formPassword",
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 47
+            lineNumber: 48
         },
         __self: this
     }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
             lineNumber: 49
+        },
+        __self: this
+    }, "Password:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
+        required: true,
+        type: "text",
+        value: password,
+        onChange: (e)=>setPassword(e.target.value)
+        ,
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 50
+        },
+        __self: this
+    }), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control.Feedback, {
+        type: "invalid",
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 51
+        },
+        __self: this
+    }, "Please provide a password.")), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
+        controlId: "formEmail",
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 55
+        },
+        __self: this
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 57
+        },
+        __self: this
+    }, "email:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
+        type: "email",
+        value: email,
+        onChange: (e)=>setEmail(e.target.value)
+        ,
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 58
+        },
+        __self: this
+    }), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control.Feedback, {
+        type: "invalid",
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 59
+        },
+        __self: this
+    }, "Please provide a valid email address.")), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
+        controlId: "formBirthDate",
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 63
+        },
+        __self: this
+    }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
+        __source: {
+            fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
+            lineNumber: 65
         },
         __self: this
     }, "birthdate:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -28908,21 +28941,20 @@ function RegistrationView(props) {
         ,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 50
+            lineNumber: 66
         },
         __self: this
     })), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
         variant: "primary",
         type: "submit",
-        onClick: handleRegister,
         __source: {
             fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/registration-view/registration-view.jsx",
-            lineNumber: 53
+            lineNumber: 69
         },
         __self: this
     }, "Submit")));
 }
-_s(RegistrationView, "JyhLbIFguttinP6NyduGeMpezzE=");
+_s(RegistrationView, "W+OOp/IPzjn691t0MFZODvAf/Co=");
 _c = RegistrationView;
 var _c;
 $RefreshReg$(_c, "RegistrationView");
