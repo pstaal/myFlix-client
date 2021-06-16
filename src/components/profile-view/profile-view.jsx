@@ -84,23 +84,24 @@ export class ProfileView extends React.Component {
 
     const { onBackClick, movies } = this.props;
     const { user, update, favoriteMovies } = this.state;
+
+    let date;
+    
+    if (user) {
+    date = new Date(user.Birthday);
+    date = date.toLocaleDateString();
+    date = date.split(' ')[0];
+    };
     
     if (!update) {
     return (
       <>
       { user && <div>
-      <div className="profile-view">
-        <div className="user-name">
-          <span className="label">Name: </span>
-          <span className="value">{user.Username}</span>
-        </div>
-        <div className="user-email">
-          <span className="label">Email: </span>
-          <span className="value">{user.Email}</span>
-        </div>
-        <div className="user-birth">
-          <span className="label">Birthdate: </span>
-          <span className="value">{user.Birthday}</span>
+      <div>
+        <div class="d-flex flex-row mb-6">
+          <h3 className="value">{user.Username}</h3>
+          <p className="value ml-4 pt-2">Email: {user.Email}</p>
+          <p className="value ml-4 pt-2">Birthdate: {date}</p>
         </div>
         <Button className="mb-3 w-100" onClick={() => { onBackClick(); }}>Back</Button>
         <Button className="mb-3 w-100" onClick={() => this.setState({ update : true })}>Update my profile</Button>
