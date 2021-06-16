@@ -19,7 +19,6 @@ export function RegistrationView(props) {
     }
     setValidated(true);
 
-
     axios.post('https://whispering-journey-40194.herokuapp.com/users', {
       Username: username,
       Password: password,
@@ -55,7 +54,7 @@ export function RegistrationView(props) {
       <Form.Group controlId="formEmail">
       
        <Form.Label>email:</Form.Label> 
-        <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <Form.Control required type="email" value={email} onChange={e => setEmail(e.target.value)} />
         <Form.Control.Feedback type="invalid">
             Please provide a valid email address.
           </Form.Control.Feedback>

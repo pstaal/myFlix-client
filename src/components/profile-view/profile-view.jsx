@@ -102,8 +102,8 @@ export class ProfileView extends React.Component {
           <span className="label">Birthdate: </span>
           <span className="value">{user.Birthday}</span>
         </div>
-        <Button variant="link" onClick={() => { onBackClick(); }}>Back</Button>
-        <Button variant="link" onClick={() => this.setState({ update : true })}>Update my profile</Button>
+        <Button className="mb-3 w-100" onClick={() => { onBackClick(); }}>Back</Button>
+        <Button className="mb-3 w-100" onClick={() => this.setState({ update : true })}>Update my profile</Button>
       </div> 
       <Row className="justify-content-md-center">
       {favoriteMovies.map(m => (

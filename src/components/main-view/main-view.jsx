@@ -109,16 +109,16 @@ export class MainView extends React.Component {
           <Nav.Item>
             <Nav.Link style={{color: 'white'}} href="/">All Movies</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item className="ml-5">
             <Link style={{color: 'white', textDecoration: 'none'}} to={`/users/${user}`}>My Profile</Link>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item className="ml-5">
             <Nav.Link style={{color: 'white'}} onClick={this.logoutUser}>Logout</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item className="ml-5">
             <Nav.Link style={{color: 'white'}} href="/register">Register</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item className="ml-5">
            <Nav.Link style={{color: 'white'}} onClick={() => this.setState({show:true})}>
               Deregister
           </Nav.Link>
@@ -139,7 +139,7 @@ export class MainView extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => this.setState({show:false})}>
-            Close
+            No!
           </Button>
           <Button onClick={this.deregister} variant="primary">Yes!</Button>
         </Modal.Footer>
