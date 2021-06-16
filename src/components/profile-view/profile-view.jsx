@@ -72,7 +72,7 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       console.log(response.data);
-      this.setState({favoriteMovies: response.data.FavoriteMovies})
+      this.setState({favoriteMovies: this.state.favoriteMovies.filter((movie) => movie._id !== id)})
       })
     .catch(function (error) {
       console.log(error);

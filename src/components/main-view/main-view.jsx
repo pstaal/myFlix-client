@@ -35,9 +35,7 @@ export class MainView extends React.Component {
 
   addFavorite = (id) => {
     let token = localStorage.getItem('token');
-    console.log(token);
-    console.log(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}/movies/${id}`);
-    axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user.Username}/movies/${id}`, {
+    axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}/movies/${id}`, {}, {
       headers: { Authorization: `Bearer ${token}`}
     }).then(response => {
       console.log(response.data);
