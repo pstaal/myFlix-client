@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 export function RegistrationView(props) {
@@ -11,28 +12,30 @@ export function RegistrationView(props) {
   const [birthDate, setBirthDate ] = useState('');
   const [validated, setValidated] = useState(false);
 
+  let history = useHistory();
+
   const handleRegister = (e) => {
+    e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      e.preventDefault();
       e.stopPropagation();
+    } else {
+      axios.post('https://whispering-journey-40194.herokuapp.com/users', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthDate
+      })
+        .then(response => {
+          const data = response.data;
+          console.log(data);
+          history.push("/");
+        })
+        .catch(e => {
+          console.log('error registering the user')
+        });
     }
     setValidated(true);
-
-    axios.post('https://whispering-journey-40194.herokuapp.com/users', {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthDate
-    })
-    .then(response => {
-      const data = response.data;
-      console.log(data);
-      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-    })
-    .catch(e => {
-      console.log('error registering the user')
-    });
   };
 
   return (
