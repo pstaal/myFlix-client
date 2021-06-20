@@ -22013,7 +22013,7 @@ class MainView extends _reactDefault.default.Component {
                 lineNumber: 113
             },
             __self: this
-        }, "My Profile")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
+        }, "My Profile")), user && /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             className: "ml-5",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
@@ -22030,7 +22030,7 @@ class MainView extends _reactDefault.default.Component {
                 lineNumber: 116
             },
             __self: this
-        }, "Logout")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
+        }, "Logout")), !user && /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             className: "ml-5",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
@@ -22047,7 +22047,7 @@ class MainView extends _reactDefault.default.Component {
                 lineNumber: 119
             },
             __self: this
-        }, "Register")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
+        }, "Register")), user && /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             className: "ml-5",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",

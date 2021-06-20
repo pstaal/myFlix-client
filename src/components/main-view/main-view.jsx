@@ -112,17 +112,17 @@ export class MainView extends React.Component {
           <Nav.Item className="ml-5">
             <Link style={{color: 'white', textDecoration: 'none'}} to={`/users/${user}`}>My Profile</Link>
           </Nav.Item>
-          <Nav.Item className="ml-5">
+          {user && <Nav.Item className="ml-5">
             <Nav.Link style={{color: 'white'}} onClick={this.logoutUser}>Logout</Nav.Link>
-          </Nav.Item>
-          <Nav.Item className="ml-5">
+          </Nav.Item>}
+          {!user && <Nav.Item className="ml-5">
             <Nav.Link style={{color: 'white'}} href="/register">Register</Nav.Link>
-          </Nav.Item>
-          <Nav.Item className="ml-5">
+          </Nav.Item>}
+          {user && <Nav.Item className="ml-5">
            <Nav.Link style={{color: 'white'}} onClick={() => this.setState({show:true})}>
               Deregister
           </Nav.Link>
-          </Nav.Item>
+          </Nav.Item>}
         </Navbar>
 
         <Modal
