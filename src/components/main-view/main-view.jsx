@@ -17,6 +17,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner'
 
 
 
@@ -27,7 +28,8 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
-      show: false
+      show: false,
+      loading: true
     };
     this.onLoggedIn = this.onLoggedIn.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
@@ -67,7 +69,8 @@ export class MainView extends React.Component {
     .then(response => {
       // Assign the result to the state
       this.setState({
-        movies: response.data
+        movies: response.data,
+        loading: false
       });
     })
     .catch(function (error) {
@@ -102,7 +105,7 @@ export class MainView extends React.Component {
   }
   
   render() {
-    const { movies, user } = this.state;
+    const { movies, user, loading } = this.state;
     return (
       <Router>
         <Navbar bg="primary" variant="dark" fixed="top">
@@ -151,6 +154,10 @@ export class MainView extends React.Component {
             if (!user) return <Col>
           <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
           </Col>
+          if (loading) return (
+            <Spinner animation="border" role="status">
+            </Spinner>
+          )
           if (movies.length === 0) return <div className="main-view" />;
           return movies.map(m => (
          <Col md={3} key={m._id}>

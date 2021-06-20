@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
+import Spinner from 'react-bootstrap/Spinner';
 
 export class ProfileView extends React.Component {
 
@@ -14,7 +15,8 @@ export class ProfileView extends React.Component {
     this.state = {
       user: null,
       favoriteMovies: [],
-      update: false
+      update: false,
+      loading: true
     };
   }
 
@@ -36,7 +38,8 @@ export class ProfileView extends React.Component {
         // Assign the result to the state
         this.setState({
           user: response.data,
-          favoriteMovies: favMovies
+          favoriteMovies: favMovies,
+          loading: false
         });
       })
       .catch(function (error) {
@@ -83,7 +86,14 @@ export class ProfileView extends React.Component {
   render() {
 
     const { onBackClick, movies } = this.props;
-    const { user, update, favoriteMovies } = this.state;
+    const { user, update, favoriteMovies, loading } = this.state;
+
+    if (loading) {
+       return (
+        <Spinner animation="border" role="status">
+        </Spinner>
+       )
+    }
 
     let date;
     
