@@ -160,7 +160,7 @@ class MainView extends React.Component {
           <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
           </Col>
           if (movies.length === 0) return <div className="main-view" />;
-          return <MoviesList movies={movies}/>;
+          return <MoviesList buttonFunction={this.addFavorite} text={'Add to Favorites'} movies={movies}/>;
       }} />
       <Route path="/register" render={() => {
         if (user) return <Redirect to="/" />
