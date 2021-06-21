@@ -7,13 +7,14 @@ import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
 import Spinner from 'react-bootstrap/Spinner';
+import { connect } from 'react-redux';
+import { setUser } from '../../actions/actions';
 
-export class ProfileView extends React.Component {
+class ProfileView extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      user: null,
       favoriteMovies: [],
       update: false,
       loading: true
@@ -85,8 +86,8 @@ export class ProfileView extends React.Component {
 
   render() {
 
-    const { onBackClick, movies } = this.props;
-    const { user, update, favoriteMovies, loading } = this.state;
+    const { onBackClick, movies, user } = this.props;
+    const { update, loading } = this.state;
 
     if (loading) {
        return (
@@ -172,3 +173,9 @@ export class ProfileView extends React.Component {
     }
   }
 }
+
+let mapStateToProps = state => {
+  return { user: state.userState }
+}
+
+export default connect(mapStateToProps, { setUser } )(ProfileView);

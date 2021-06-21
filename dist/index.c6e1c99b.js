@@ -31432,8 +31432,6 @@ helpers.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ProfileView", ()=>ProfileView
-);
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
@@ -31451,11 +31449,12 @@ var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _movieCard = require("../movie-card/movie-card");
 var _spinner = require("react-bootstrap/Spinner");
 var _spinnerDefault = parcelHelpers.interopDefault(_spinner);
+var _reactRedux = require("react-redux");
+var _actions = require("../../actions/actions");
 class ProfileView extends _reactDefault.default.Component {
     constructor(){
         super();
         this.state = {
-            user: null,
             favoriteMovies: [],
             update: false,
             loading: true
@@ -31522,14 +31521,14 @@ class ProfileView extends _reactDefault.default.Component {
         });
     };
     render() {
-        const { onBackClick , movies  } = this.props;
-        const { user , update , favoriteMovies , loading  } = this.state;
+        const { onBackClick , movies , user  } = this.props;
+        const { update , loading  } = this.state;
         if (loading) return(/*#__PURE__*/ _reactDefault.default.createElement(_spinnerDefault.default, {
             animation: "border",
             role: "status",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 93
+                lineNumber: 94
             },
             __self: this
         }));
@@ -31542,41 +31541,41 @@ class ProfileView extends _reactDefault.default.Component {
         if (!update) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, user && /*#__PURE__*/ _reactDefault.default.createElement("div", {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 109
+                lineNumber: 110
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 110
+                lineNumber: 111
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("div", {
             class: "d-flex flex-row mb-6",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 111
+                lineNumber: 112
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement("h3", {
             className: "value",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 112
+                lineNumber: 113
             },
             __self: this
         }, user.Username), /*#__PURE__*/ _reactDefault.default.createElement("p", {
             className: "value ml-4 pt-2",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 113
+                lineNumber: 114
             },
             __self: this
         }, "Email: ", user.Email), /*#__PURE__*/ _reactDefault.default.createElement("p", {
             className: "value ml-4 pt-2",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 114
+                lineNumber: 115
             },
             __self: this
         }, "Birthdate: ", date)), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
@@ -31586,7 +31585,7 @@ class ProfileView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 116
+                lineNumber: 117
             },
             __self: this
         }, "Back"), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
@@ -31597,14 +31596,14 @@ class ProfileView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 117
+                lineNumber: 118
             },
             __self: this
         }, "Update my profile")), /*#__PURE__*/ _reactDefault.default.createElement(_rowDefault.default, {
             className: "justify-content-md-center",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 119
+                lineNumber: 120
             },
             __self: this
         }, favoriteMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
@@ -31612,7 +31611,7 @@ class ProfileView extends _reactDefault.default.Component {
                 key: m._id,
                 __source: {
                     fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                    lineNumber: 121
+                    lineNumber: 122
                 },
                 __self: this
             }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
@@ -31621,7 +31620,7 @@ class ProfileView extends _reactDefault.default.Component {
                 text: 'Remove from Favorites',
                 __source: {
                     fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                    lineNumber: 122
+                    lineNumber: 123
                 },
                 __self: this
             }))
@@ -31629,20 +31628,20 @@ class ProfileView extends _reactDefault.default.Component {
         else return(/*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 132
+                lineNumber: 133
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
             controlId: "formUsername",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 133
+                lineNumber: 134
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 134
+                lineNumber: 135
             },
             __self: this
         }, "Username:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -31657,20 +31656,20 @@ class ProfileView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 135
+                lineNumber: 136
             },
             __self: this
         })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
             controlId: "formPassword",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 141
+                lineNumber: 142
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 142
+                lineNumber: 143
             },
             __self: this
         }, "password:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -31684,20 +31683,20 @@ class ProfileView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 143
+                lineNumber: 144
             },
             __self: this
         })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
             controlId: "formEmail",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 149
+                lineNumber: 150
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 151
+                lineNumber: 152
             },
             __self: this
         }, "email:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -31712,20 +31711,20 @@ class ProfileView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 152
+                lineNumber: 153
             },
             __self: this
         })), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Group, {
             controlId: "formBirthDate",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 158
+                lineNumber: 159
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Label, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 160
+                lineNumber: 161
             },
             __self: this
         }, "birthdate:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
@@ -31740,7 +31739,7 @@ class ProfileView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 161
+                lineNumber: 162
             },
             __self: this
         })), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
@@ -31749,19 +31748,27 @@ class ProfileView extends _reactDefault.default.Component {
             onClick: this.handleUpdate,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
-                lineNumber: 167
+                lineNumber: 168
             },
             __self: this
         }, "Update my profile")));
     }
 }
+let mapStateToProps = (state)=>{
+    return {
+        user: state.userState
+    };
+};
+exports.default = _reactRedux.connect(mapStateToProps, {
+    setUser: _actions.setUser
+})(ProfileView);
 
   helpers.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","axios":"7rA65","react-bootstrap/Form":"6A5ko","../movie-card/movie-card":"V7mNr","react-bootstrap/Col":"2D0r8","react-bootstrap/Row":"3fzwD","react-bootstrap/Spinner":"4fhZt"}],"V7mNr":[function(require,module,exports) {
+},{"react":"3b2NM","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","axios":"7rA65","react-bootstrap/Form":"6A5ko","../movie-card/movie-card":"V7mNr","react-bootstrap/Col":"2D0r8","react-bootstrap/Row":"3fzwD","react-bootstrap/Spinner":"4fhZt","react-redux":"7GDa4","../../actions/actions":"5S6cN"}],"V7mNr":[function(require,module,exports) {
 var helpers = require("../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -33124,12 +33131,17 @@ parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
 );
 parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
 );
+parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
+);
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
 parcelHelpers.export(exports, "setFilter", ()=>setFilter
 );
+parcelHelpers.export(exports, "setUser", ()=>setUser
+);
 const SET_MOVIES = 'SET_MOVIES';
 const SET_FILTER = 'SET_FILTER';
+const SET_USER = 'SET_USER';
 function setMovies(value) {
     return {
         type: SET_MOVIES,
@@ -33139,6 +33151,12 @@ function setMovies(value) {
 function setFilter(value) {
     return {
         type: SET_FILTER,
+        value
+    };
+}
+function setUser(value) {
+    return {
+        type: SET_USER,
         value
     };
 }
@@ -35375,9 +35393,19 @@ function movies(state = [], action) {
             return state;
     }
 }
+function userState(state = {
+}, action) {
+    switch(action.type){
+        case _actions.SET_USER:
+            return action.value;
+        default:
+            return state;
+    }
+}
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
-    movies
+    movies,
+    userState
 });
 exports.default = moviesApp;
 
