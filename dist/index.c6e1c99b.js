@@ -31606,7 +31606,7 @@ class ProfileView extends _reactDefault.default.Component {
                 lineNumber: 120
             },
             __self: this
-        }, favoriteMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
+        }, user.favoriteMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
                 md: 4,
                 key: m._id,
                 __source: {

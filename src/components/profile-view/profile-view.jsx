@@ -118,7 +118,7 @@ class ProfileView extends React.Component {
         <Button className="mb-3 w-100" onClick={() => this.setState({ update : true })}>Update my profile</Button>
       </div> 
       <Row className="justify-content-md-center">
-      {favoriteMovies.map(m => (
+      {user.favoriteMovies.map(m => (
          <Col md={4} key={m._id}>
           <MovieCard movie={m} buttonFunction={this.removeFavorite} text={'Remove from Favorites'}/>
         </Col>))}
