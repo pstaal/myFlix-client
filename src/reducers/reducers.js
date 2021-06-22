@@ -26,22 +26,22 @@ function userState(state = {}, action) {
     case SET_USER:
       return {
         ...state,
-        user: action.value
+        userState: action.value
       };
     case ADD_FAVORITE:
       return {
         ...state,
-        user.favoriteMovies: [...state.user.favoriteMovies, action.value]
+        userState.favoriteMovies: [...state.userState.favoriteMovies, action.value]
       };
     case REMOVE_FAVORITE:
       return {
         ...state,
-        user.favoriteMovies: state.user.favoriteMovies.filter(movie => movie !== action.value)
+        userState.favoriteMovies: state.userState.favoriteMovies.filter(movie => movie !== action.value)
       };
     case REMOVE_USER:
       return {
         ...state,
-        user: null
+        userState: null
       }
     default:
       return state;
