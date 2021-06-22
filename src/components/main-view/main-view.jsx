@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
 
-import { setMovies, removeUser, addFavorite } from '../../actions/actions';
+import { setMovies, removeUser, addFavorite, setUser } from '../../actions/actions';
 
 // we haven't written this one yet
 import MoviesList from '../movies-list/movies-list';
@@ -88,9 +88,7 @@ class MainView extends React.Component {
 
   onLoggedIn(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
+    this.props.setUser(authData.user)
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
@@ -221,7 +219,8 @@ let mapStateToProps = state => {
 let mapDispatchToProps = {
   setMovies,
   addFavorite,
-  removeUser
+  removeUser, 
+  setUser
 }
 
 // #8
