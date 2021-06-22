@@ -22281,9 +22281,12 @@ let mapStateToProps = (state)=>{
         movies: state.movies
     };
 };
-exports.default = _reactRedux.connect(mapStateToProps, {
-    setMovies: _actions.setMovies
-})(MainView);
+let mapDispatchToProps = {
+    setMovies: _actions.setMovies,
+    addFavorite: _actions.addFavorite,
+    removeUser: _actions.removeUser
+};
+exports.default = _reactRedux.connect(mapStateToProps, mapDispatchToProps)(MainView);
 
   helpers.postlude(module);
 } finally {
@@ -31506,15 +31509,15 @@ class ProfileView extends _reactDefault.default.Component {
         });
     };
     render() {
-        const { onBackClick , user  } = this.props;
+        const { onBackClick , userState  } = this.props;
         const { update  } = this.state;
         let date;
-        if (user) {
-            date = new Date(user.Birthday);
+        if (userState) {
+            date = new Date(userState.Birthday);
             date = date.toLocaleDateString();
             date = date.split(' ')[0];
         }
-        if (!update) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, user && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+        if (!update) return(/*#__PURE__*/ _reactDefault.default.createElement(_reactDefault.default.Fragment, null, userState && /*#__PURE__*/ _reactDefault.default.createElement("div", {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
                 lineNumber: 91
@@ -31540,14 +31543,14 @@ class ProfileView extends _reactDefault.default.Component {
                 lineNumber: 94
             },
             __self: this
-        }, user.Username), /*#__PURE__*/ _reactDefault.default.createElement("p", {
+        }, userState.Username), /*#__PURE__*/ _reactDefault.default.createElement("p", {
             className: "value ml-4 pt-2",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
                 lineNumber: 95
             },
             __self: this
-        }, "Email: ", user.Email), /*#__PURE__*/ _reactDefault.default.createElement("p", {
+        }, "Email: ", userState.Email), /*#__PURE__*/ _reactDefault.default.createElement("p", {
             className: "value ml-4 pt-2",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
@@ -31582,7 +31585,7 @@ class ProfileView extends _reactDefault.default.Component {
                 lineNumber: 101
             },
             __self: this
-        }, user.favoriteMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
+        }, userState.favoriteMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
                 md: 4,
                 key: m._id,
                 __source: {
@@ -35390,6 +35393,8 @@ function userState(state = {
                 favoriteMovies: state.favoriteMovies.filter((movie)=>movie !== action.value
                 )
             };
+        case _actions.REMOVE_USER:
+            return null;
         default:
             return state;
     }

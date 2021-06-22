@@ -74,13 +74,13 @@ class ProfileView extends React.Component {
 
   render() {
 
-    const { onBackClick, user } = this.props;
+    const { onBackClick, userState } = this.props;
     const { update } = this.state;
 
     let date;
 
-    if (user) {
-      date = new Date(user.Birthday);
+    if (userState) {
+      date = new Date(userState.Birthday);
       date = date.toLocaleDateString();
       date = date.split(' ')[0];
     };
@@ -88,18 +88,18 @@ class ProfileView extends React.Component {
     if (!update) {
       return (
         <>
-          {user && <div>
+          {userState && <div>
             <div>
               <div class="d-flex flex-row mb-6">
-                <h3 className="value">{user.Username}</h3>
-                <p className="value ml-4 pt-2">Email: {user.Email}</p>
+                <h3 className="value">{userState.Username}</h3>
+                <p className="value ml-4 pt-2">Email: {userState.Email}</p>
                 <p className="value ml-4 pt-2">Birthdate: {date}</p>
               </div>
               <Button className="mb-3 w-100" onClick={() => { onBackClick(); }}>Back</Button>
               <Button className="mb-3 w-100" onClick={() => this.setState({ update: true })}>Update my profile</Button>
             </div>
             <Row className="justify-content-md-center">
-              {user.favoriteMovies.map(m => (
+              {userState.favoriteMovies.map(m => (
                 <Col md={4} key={m._id}>
                   <MovieCard movie={m} buttonFunction={this.removeFavorite} text={'Remove from Favorites'} />
                 </Col>))}
