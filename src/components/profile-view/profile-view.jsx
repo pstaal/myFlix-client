@@ -24,11 +24,15 @@ class ProfileView extends React.Component {
 
 
   getUser = () => {
+    console.log('------');
+    console.log(this.props);
+    console.log('------');
     let token = localStorage.getItem('token');
     axios.get(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
+        console.log(response)
         this.props.setUser(response.data);
       })
       .catch(function (error) {
