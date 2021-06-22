@@ -33083,6 +33083,8 @@ parcelHelpers.export(exports, "ADD_FAVORITE", ()=>ADD_FAVORITE
 );
 parcelHelpers.export(exports, "REMOVE_FAVORITE", ()=>REMOVE_FAVORITE
 );
+parcelHelpers.export(exports, "REMOVE_USER", ()=>REMOVE_USER
+);
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
 parcelHelpers.export(exports, "setFilter", ()=>setFilter
@@ -33093,11 +33095,14 @@ parcelHelpers.export(exports, "addFavorite", ()=>addFavorite
 );
 parcelHelpers.export(exports, "removeFavorite", ()=>removeFavorite
 );
+parcelHelpers.export(exports, "removeUser", ()=>removeUser
+);
 const SET_MOVIES = 'SET_MOVIES';
 const SET_FILTER = 'SET_FILTER';
 const SET_USER = 'SET_USER';
 const ADD_FAVORITE = 'ADD_FAVORITE';
 const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+const REMOVE_USER = 'REMOVE_USER';
 function setMovies(value) {
     return {
         type: SET_MOVIES,
@@ -33126,6 +33131,11 @@ function removeFavorite(value) {
     return {
         type: REMOVE_FAVORITE,
         value
+    };
+}
+function removeUser() {
+    return {
+        type: REMOVE_USER
     };
 }
 

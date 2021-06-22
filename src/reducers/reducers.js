@@ -24,17 +24,25 @@ function movies(state = [], action) {
 function userState(state = {}, action) {
   switch (action.type) {
     case SET_USER:
-      return action.value;
+      return {
+        ...state,
+        user: action.value
+      };
     case ADD_FAVORITE:
       return {
         ...state,
-        favoriteMovies: [...state.favoriteMovies, action.value]
+        user.favoriteMovies: [...state.user.favoriteMovies, action.value]
       };
     case REMOVE_FAVORITE:
       return {
         ...state,
-        favoriteMovies: state.favoriteMovies.filter(movie => movie !== action.value)
+        user.favoriteMovies: state.user.favoriteMovies.filter(movie => movie !== action.value)
       };
+    case REMOVE_USER:
+      return {
+        ...state,
+        user: null
+      }
     default:
       return state;
   }

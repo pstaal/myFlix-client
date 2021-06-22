@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, removeUser, addFavorite } from '../../actions/actions';
 
 // we haven't written this one yet
 import MoviesList from '../movies-list/movies-list';
@@ -219,5 +219,11 @@ let mapStateToProps = state => {
   return { movies: state.movies }
 }
 
+let mapDispatchToProps = {
+  setMovies,
+  addFavorite,
+  removeUser
+}
+
 // #8
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, mapDispatchToProps)(MainView);

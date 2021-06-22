@@ -5,6 +5,7 @@ export const SET_FILTER = 'SET_FILTER';
 export const SET_USER = 'SET_USER';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const REMOVE_USER = 'REMOVE_USER';
 
 export function setMovies(value) {
   return { type: SET_MOVIES, value };
@@ -24,4 +25,8 @@ export function addFavorite(value) {
 
 export function removeFavorite(value) {
   return { type: REMOVE_FAVORITE, value };
+}
+
+export function removeUser() {
+  return { type: REMOVE_USER };
 }
