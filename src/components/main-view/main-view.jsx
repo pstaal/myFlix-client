@@ -34,7 +34,6 @@ class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: null,
       show: false
     };
     this.onLoggedIn = this.onLoggedIn.bind(this);
@@ -84,7 +83,7 @@ class MainView extends React.Component {
 
   logoutUser() {
     localStorage.clear();
-    this.setState({ user: null });
+    this.props.removeUser();
   }
 
   onLoggedIn(authData) {

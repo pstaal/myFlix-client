@@ -21912,7 +21912,6 @@ class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
         this.state = {
-            user: null,
             show: false
         };
         this.onLoggedIn = this.onLoggedIn.bind(this);
@@ -21958,9 +21957,7 @@ class MainView extends _reactDefault.default.Component {
     }
     logoutUser() {
         localStorage.clear();
-        this.setState({
-            user: null
-        });
+        this.props.removeUser();
     }
     onLoggedIn(authData) {
         console.log(authData);
@@ -21986,7 +21983,7 @@ class MainView extends _reactDefault.default.Component {
         return(/*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 115
+                lineNumber: 114
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navbarDefault.default, {
@@ -21995,13 +21992,13 @@ class MainView extends _reactDefault.default.Component {
             fixed: "top",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 116
+                lineNumber: 115
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 117
+                lineNumber: 116
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
@@ -22011,14 +22008,14 @@ class MainView extends _reactDefault.default.Component {
             href: "/",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 118
+                lineNumber: 117
             },
             __self: this
         }, "All Movies")), /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             className: "ml-5",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 120
+                lineNumber: 119
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
@@ -22029,14 +22026,14 @@ class MainView extends _reactDefault.default.Component {
             to: `/users/${user}`,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 121
+                lineNumber: 120
             },
             __self: this
         }, "My Profile")), user && /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             className: "ml-5",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 123
+                lineNumber: 122
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
@@ -22046,14 +22043,14 @@ class MainView extends _reactDefault.default.Component {
             onClick: this.logoutUser,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 124
+                lineNumber: 123
             },
             __self: this
         }, "Logout")), !user && /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             className: "ml-5",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 126
+                lineNumber: 125
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
@@ -22063,14 +22060,14 @@ class MainView extends _reactDefault.default.Component {
             href: "/register",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 127
+                lineNumber: 126
             },
             __self: this
         }, "Register")), user && /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Item, {
             className: "ml-5",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 129
+                lineNumber: 128
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_navDefault.default.Link, {
@@ -22083,7 +22080,7 @@ class MainView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 130
+                lineNumber: 129
             },
             __self: this
         }, "Deregister"))), /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default, {
@@ -22096,32 +22093,32 @@ class MainView extends _reactDefault.default.Component {
             keyboard: false,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 136
+                lineNumber: 135
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Header, {
             closeButton: true,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 142
+                lineNumber: 141
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Title, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 143
+                lineNumber: 142
             },
             __self: this
         }, "Deregister")), /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Body, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 145
+                lineNumber: 144
             },
             __self: this
         }, "Are you shure you want to deregister yourself?"), /*#__PURE__*/ _reactDefault.default.createElement(_modalDefault.default.Footer, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 148
+                lineNumber: 147
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
@@ -22132,7 +22129,7 @@ class MainView extends _reactDefault.default.Component {
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 149
+                lineNumber: 148
             },
             __self: this
         }, "No!"), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
@@ -22140,14 +22137,14 @@ class MainView extends _reactDefault.default.Component {
             variant: "primary",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 152
+                lineNumber: 151
             },
             __self: this
         }, "Yes!"))), /*#__PURE__*/ _reactDefault.default.createElement(_rowDefault.default, {
             className: "main-view justify-content-md-center",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 156
+                lineNumber: 155
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22168,7 +22165,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 158
+                lineNumber: 157
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22181,7 +22178,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 165
+                lineNumber: 164
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22203,7 +22200,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 171
+                lineNumber: 170
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22225,7 +22222,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 180
+                lineNumber: 179
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22247,7 +22244,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 190
+                lineNumber: 189
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Route, {
@@ -22270,7 +22267,7 @@ class MainView extends _reactDefault.default.Component {
             },
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/main-view/main-view.jsx",
-                lineNumber: 200
+                lineNumber: 199
             },
             __self: this
         }))));
