@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
-import Spinner from 'react-bootstrap/Spinner';
 import { connect } from 'react-redux';
 import { setUser, addFavorite, removeFavorite } from '../../actions/actions';
 
