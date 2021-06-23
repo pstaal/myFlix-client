@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import { MovieCard } from '../movie-card/movie-card';
 import { connect } from 'react-redux';
-import { setUser, addFavorite, removeFavorite } from '../../actions/actions';
+import { setUser, removeFavorite } from '../../actions/actions';
 
 class ProfileView extends React.Component {
 
@@ -28,7 +28,7 @@ class ProfileView extends React.Component {
     console.log(this.props);
     console.log('------');
     let token = localStorage.getItem('token');
-    axios.get(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
+    axios.get(`https://whispering-journey-40194.herokuapp.com/users/${this.props.state.userState.userName}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -45,7 +45,7 @@ class ProfileView extends React.Component {
     e.preventDefault();
     const { logoutUser } = this.props;
     console.log(this.state.user);
-    axios.put(`https://whispering-journey-40194.herokuapp.com/users/${this.props.user}`, {
+    axios.put(`https://whispering-journey-40194.herokuapp.com/users/${this.props.state.userState.userName}`, {
       Username: this.state.user.Username,
       Password: this.state.user.Password,
       Email: this.state.user.Email,
@@ -64,7 +64,7 @@ class ProfileView extends React.Component {
   removeFavorite = (id) => {
     let token = localStorage.getItem('token');
     console.log(id, token, this.state.user.Username);
-    axios.delete(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user.Username}/movies/${id}`, {
+    axios.delete(`https://whispering-journey-40194.herokuapp.com/users/${this.props.state.userState.Username}/movies/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       console.log(response.data);
@@ -78,13 +78,13 @@ class ProfileView extends React.Component {
 
   render() {
 
-    const { onBackClick, userState } = this.props;
+    const { onBackClick, state } = this.props;
     const { update } = this.state;
 
     let date;
 
-    if (userState) {
-      date = new Date(userState.Birthday);
+    if (state.userState) {
+      date = new Date(state.userState.Birthday);
       date = date.toLocaleDateString();
       date = date.split(' ')[0];
     };
@@ -92,18 +92,18 @@ class ProfileView extends React.Component {
     if (!update) {
       return (
         <>
-          {userState && <div>
+          {state.userState && <div>
             <div>
               <div class="d-flex flex-row mb-6">
-                <h3 className="value">{userState.Username}</h3>
-                <p className="value ml-4 pt-2">Email: {userState.Email}</p>
+                <h3 className="value">{state.userState.Username}</h3>
+                <p className="value ml-4 pt-2">Email: {state.userState.Email}</p>
                 <p className="value ml-4 pt-2">Birthdate: {date}</p>
               </div>
               <Button className="mb-3 w-100" onClick={() => { onBackClick(); }}>Back</Button>
               <Button className="mb-3 w-100" onClick={() => this.setState({ update: true })}>Update my profile</Button>
             </div>
             <Row className="justify-content-md-center">
-              {userState.favoriteMovies.map(m => (
+              {state.userState.favoriteMovies.map(m => (
                 <Col md={4} key={m._id}>
                   <MovieCard movie={m} buttonFunction={this.removeFavorite} text={'Remove from Favorites'} />
                 </Col>))}
@@ -118,7 +118,7 @@ class ProfileView extends React.Component {
         <Form>
           <Form.Group controlId="formUsername">
             <Form.Label>Username:</Form.Label>
-            <Form.Control type="text" value={user.Username} onChange={e => this.setState({
+            <Form.Control type="text" value={state.userState.Username} onChange={e => this.setState({
               user: {
                 ...this.state.user,
                 Username: e.target.value
@@ -139,7 +139,7 @@ class ProfileView extends React.Component {
           <Form.Group controlId="formEmail">
 
             <Form.Label>email:</Form.Label>
-            <Form.Control type="text" value={user.Email} onChange={e => this.setState({
+            <Form.Control type="text" value={state.userState.Email} onChange={e => this.setState({
               user: {
                 ...this.state.user,
                 Email: e.target.value
@@ -150,7 +150,7 @@ class ProfileView extends React.Component {
           <Form.Group controlId="formBirthDate">
 
             <Form.Label>birthdate:</Form.Label>
-            <Form.Control type="text" value={user.Birthday} onChange={e => this.setState({
+            <Form.Control type="text" value={state.userState.Birthday} onChange={e => this.setState({
               user: {
                 ...this.state.user,
                 Birthday: e.target.value
@@ -168,12 +168,11 @@ class ProfileView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { user: state.userState }
+  return state
 }
 
 const mapDispatchToProps = {
   setUser,
-  addFavorite,
   removeFavorite
 }
 

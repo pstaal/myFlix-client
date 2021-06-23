@@ -42,7 +42,7 @@ class MainView extends React.Component {
 
   addFavorite = (id) => {
     let token = localStorage.getItem('token');
-    axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}/movies/${id}`, {}, {
+    axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.props.userState.userName}/movies/${id}`, {}, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       console.log(response.data);
@@ -98,16 +98,14 @@ class MainView extends React.Component {
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
+      this.props.setUser(localStorage.getItem('user'));
       this.getMovies(accessToken);
     }
   }
 
   render() {
-    let { movies } = this.props;
-    let { user } = this.state;
+    let { movies } = this.props.state;
+    let { userState } = this.props.state;
     return (
       <Router>
         <Navbar bg="primary" variant="dark" fixed="top">
@@ -115,15 +113,15 @@ class MainView extends React.Component {
             <Nav.Link style={{ color: 'white' }} href="/">All Movies</Nav.Link>
           </Nav.Item>
           <Nav.Item className="ml-5">
-            <Link style={{ color: 'white', textDecoration: 'none' }} to={`/users/${user}`}>My Profile</Link>
+            <Link style={{ color: 'white', textDecoration: 'none' }} to={`/users/${userState.userName}`}>My Profile</Link>
           </Nav.Item>
-          {user && <Nav.Item className="ml-5">
+          {userState && <Nav.Item className="ml-5">
             <Nav.Link style={{ color: 'white' }} onClick={this.logoutUser}>Logout</Nav.Link>
           </Nav.Item>}
-          {!user && <Nav.Item className="ml-5">
+          {!userState && <Nav.Item className="ml-5">
             <Nav.Link style={{ color: 'white' }} href="/register">Register</Nav.Link>
           </Nav.Item>}
-          {user && <Nav.Item className="ml-5">
+          {userState && <Nav.Item className="ml-5">
             <Nav.Link style={{ color: 'white' }} onClick={() => this.setState({ show: true })}>
               Deregister
             </Nav.Link>
@@ -153,21 +151,21 @@ class MainView extends React.Component {
         <Row className="main-view justify-content-md-center">
 
           <Route exact path="/" render={() => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            if (!userState) return <Col>
+              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <MoviesList buttonFunction={this.addFavorite} text={'Add to Favorites'} movies={movies} />;
           }} />
           <Route path="/register" render={() => {
-            if (user) return <Redirect to="/" />
+            if (userState) return <Redirect to="/" />
             return <Col>
               <RegistrationView />
             </Col>
           }} />
           <Route path="/movies/:movieId" render={({ match, history }) => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            if (!userState) return <Col>
+              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
@@ -175,8 +173,8 @@ class MainView extends React.Component {
             </Col>
           }} />
           <Route path="/directors/:name" render={({ match, history }) => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            if (!userState) return <Col>
+              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
@@ -185,8 +183,8 @@ class MainView extends React.Component {
           }
           } />
           <Route path="/genres/:name" render={({ match, history }) => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            if (!userState) return <Col>
+              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
@@ -195,12 +193,12 @@ class MainView extends React.Component {
           }
           } />
           <Route path="/users/:username" render={({ match, history }) => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+            if (!userState) return <Col>
+              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
-              <ProfileView logoutUser={this.logoutUser} user={match.params.username} movies={movies} onBackClick={() => history.goBack()} />
+              <ProfileView logoutUser={this.logoutUser} onBackClick={() => history.goBack()} />
             </Col>
           }
           } />
@@ -213,7 +211,7 @@ class MainView extends React.Component {
 };
 
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { state }
 }
 
 let mapDispatchToProps = {
