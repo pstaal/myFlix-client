@@ -97,6 +97,7 @@ class MainView extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
+    console.log()
     if (accessToken !== null) {
       this.props.setUser(localStorage.getItem('user'));
       this.getMovies(accessToken);
@@ -152,7 +153,7 @@ class MainView extends React.Component {
 
           <Route exact path="/" render={() => {
             if (!userState) return <Col>
-              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
             return <MoviesList buttonFunction={this.addFavorite} text={'Add to Favorites'} movies={movies} />;
