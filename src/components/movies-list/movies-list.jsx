@@ -18,13 +18,13 @@ function MoviesList(props) {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       // return response.data
-      props.addFavorite(response.data)
+      props.addFavorite(response.data);
     })
       .catch(function (error) {
         console.log(error);
       });
   }
-  const { movies, visibilityFilter, text } = props;
+  const { movies, visibilityFilter, text, userFavorite } = props;
 
   let filteredMovies = movies;
 
@@ -39,8 +39,12 @@ function MoviesList(props) {
     </Col>
 
     {filteredMovies.map(m => (
+      userFavorite.FavoriteMovies.includes(m._id) ?
       <Col md={3} key={m._id}>
-        <MovieCard buttonFunction={addFavoriteMovie} text={text} movie={m} />
+        <MovieCard disabled={true} text={'Added to my favorites list'} movie={m} />
+      </Col> :
+      <Col md={3} key={m._id}>
+        <MovieCard disabled={false} buttonFunction={addFavoriteMovie} text={text} movie={m} />
       </Col>
     ))}
   </Fragment>;
@@ -48,11 +52,12 @@ function MoviesList(props) {
 }
 
 const mapStateToProps = state => {
-  const { visibilityFilter, movies, userState } = state;
+  const { visibilityFilter, movies, userState, userFavorite } = state;
   return {
     visibilityFilter,
     movies,
-    userState
+    userState,
+    userFavorite
   };
 };
 
