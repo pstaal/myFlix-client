@@ -34,27 +34,28 @@ class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      show: false
+      show: false,
     };
     this.onLoggedIn = this.onLoggedIn.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
   }
 
-  addFavorite = (id) => {
-    let token = localStorage.getItem('token');
-    axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.props.userState.userName}/movies/${id}`, {}, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(response => {
-      console.log(response.data);
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  // addFavorite = (id) => {
+  //   let token = localStorage.getItem('token');
+  //   axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}/movies/${id}`, {}, {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   }).then(response => {
+  //     console.log(response.data);
+  //   })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
 
   deregister = () => {
     let token = localStorage.getItem('token');
-    axios.delete(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}`, {
+    let user = localStorage.getItem('user');
+    axios.delete(`https://whispering-journey-40194.herokuapp.com/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       console.log(response.data);
@@ -65,7 +66,6 @@ class MainView extends React.Component {
       });
 
   }
-
 
   getMovies(token) {
     axios.get('https://whispering-journey-40194.herokuapp.com/movies', {
@@ -83,13 +83,17 @@ class MainView extends React.Component {
 
   logoutUser() {
     localStorage.clear();
-    this.props.removeUser();
+    // this.props.removeUser();
+    window.open('/', '_self');
   }
 
   onLoggedIn(authData) {
     console.log(authData);
     this.props.setUser(authData.user)
-
+    this.props.addFavorite(authData.user)
+    // this.setState({
+    //   user: authData.user.Username
+    // });
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
@@ -97,37 +101,51 @@ class MainView extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
-    console.log()
+    // let token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
     if (accessToken !== null) {
-      this.props.setUser(localStorage.getItem('user'));
       this.getMovies(accessToken);
     }
   }
 
   render() {
-    let { movies } = this.props.state;
-    let { userState } = this.props.state;
+    let { movies, userState } = this.props;
+    const user = userState.Username
+    // let { user } = this.state;
+    // console.log("hereeee", user)
     return (
       <Router>
-        <Navbar bg="primary" variant="dark" fixed="top">
-          <Nav.Item>
-            <Nav.Link style={{ color: 'white' }} href="/">All Movies</Nav.Link>
-          </Nav.Item>
-          <Nav.Item className="ml-5">
-            <Link style={{ color: 'white', textDecoration: 'none' }} to={`/users/${userState.userName}`}>My Profile</Link>
-          </Nav.Item>
-          {userState && <Nav.Item className="ml-5">
-            <Nav.Link style={{ color: 'white' }} onClick={this.logoutUser}>Logout</Nav.Link>
-          </Nav.Item>}
-          {!userState && <Nav.Item className="ml-5">
-            <Nav.Link style={{ color: 'white' }} href="/register">Register</Nav.Link>
-          </Nav.Item>}
-          {userState && <Nav.Item className="ml-5">
-            <Nav.Link style={{ color: 'white' }} onClick={() => this.setState({ show: true })}>
-              Deregister
-            </Nav.Link>
-          </Nav.Item>}
-        </Navbar>
+        {user ? (
+          <Navbar bg="primary" variant="dark" fixed="top">
+            <Nav.Item>
+              <Nav.Link style={{ color: 'white' }} href="/">All Movies</Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="ml-5">
+              <Link style={{ color: 'white', textDecoration: 'none' }} to={`/users/${user}`}>My Profile</Link>
+            </Nav.Item>
+            <Nav.Item className="ml-5">
+              <Nav.Link style={{ color: 'white' }} onClick={this.logoutUser}>Logout</Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="ml-5">
+              <Nav.Link style={{ color: 'white' }} onClick={() => this.setState({ show: true })}>
+                Deregister
+              </Nav.Link>
+            </Nav.Item>
+          </Navbar>
+        ) : (
+          <Navbar bg="primary" variant="dark" fixed="top">
+            <Nav.Item>
+              <Nav.Link style={{ color: 'white' }} href="/">Login</Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="ml-5">
+              <Nav.Link style={{ color: 'white' }} href="/register">
+                Register
+              </Nav.Link>
+            </Nav.Item>
+          </Navbar>
+        )
+
+        }
 
         <Modal
           show={this.state.show}
@@ -152,54 +170,62 @@ class MainView extends React.Component {
         <Row className="main-view justify-content-md-center">
 
           <Route exact path="/" render={() => {
-            if (!userState) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
+            if (!user) return (
+              <Col>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+              </Col>
+            )
             return <MoviesList buttonFunction={this.addFavorite} text={'Add to Favorites'} movies={movies} />;
+            if (movies.length === 0) return <div className="main-view" />;
           }} />
-          <Route path="/register" render={() => {
-            if (userState) return <Redirect to="/" />
-            return <Col>
+          <Route exact path="/register" render={() => {
+            if (user) return <Redirect to="/" />
+            return (<Col>
               <RegistrationView />
-            </Col>
+            </Col>)
           }} />
           <Route path="/movies/:movieId" render={({ match, history }) => {
-            if (!userState) return <Col>
-              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
+            if (!user) (<Col>
+              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
-            if (movies.length === 0) return <div className="main-view" />;
-            return <Col md={8}>
-              <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
-            </Col>
+            )
+            // if (movies.length === 0) return <div className="main-view" />;
+            if (user) return (
+              <Col md={8}>
+                <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
+              </Col>
+            )
           }} />
           <Route path="/directors/:name" render={({ match, history }) => {
-            if (!userState) return <Col>
-              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
+            if (!user) (
+              <Col>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+              </Col>)
+            // if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
             </Col>
           }
           } />
           <Route path="/genres/:name" render={({ match, history }) => {
-            if (!userState) return <Col>
-              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
+            if (!user) (
+              <Col>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+              </Col>)
+            // if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
             </Col>
           }
           } />
           <Route path="/users/:username" render={({ match, history }) => {
-            if (!userState) return <Col>
-              <LoginView onLoggedIn={userState => this.onLoggedIn(userState)} />
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
+            if (!user) (
+              <Col>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+              </Col>)
+            // if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
-              <ProfileView logoutUser={this.logoutUser} onBackClick={() => history.goBack()} />
+              <ProfileView logoutUser={this.logoutUser} user={match.params.username} onBackClick={() => history.goBack()} />
             </Col>
           }
           } />
@@ -212,13 +238,16 @@ class MainView extends React.Component {
 };
 
 let mapStateToProps = state => {
-  return { state }
+  return {
+    movies: state.movies,
+    userState: state.userState
+  }
 }
 
 let mapDispatchToProps = {
   setMovies,
   addFavorite,
-  removeUser, 
+  removeUser,
   setUser
 }
 
