@@ -40,18 +40,6 @@ class MainView extends React.Component {
     this.logoutUser = this.logoutUser.bind(this);
   }
 
-  // addFavorite = (id) => {
-  //   let token = localStorage.getItem('token');
-  //   axios.post(`https://whispering-journey-40194.herokuapp.com/users/${this.state.user}/movies/${id}`, {}, {
-  //     headers: { Authorization: `Bearer ${token}` }
-  //   }).then(response => {
-  //     console.log(response.data);
-  //   })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
-
   deregister = () => {
     let token = localStorage.getItem('token');
     let user = localStorage.getItem('user');
@@ -118,7 +106,7 @@ class MainView extends React.Component {
         {user ? (
           <Navbar bg="primary" variant="dark" fixed="top">
             <Nav.Item>
-              <Nav.Link style={{ color: 'white' }} href="/">All Movies</Nav.Link>
+              <Link to="/" style={{ color: 'white' }}>All Movies</Link>
             </Nav.Item>
             <Nav.Item className="ml-5">
               <Link style={{ color: 'white', textDecoration: 'none' }} to={`/users/${user}`}>My Profile</Link>
