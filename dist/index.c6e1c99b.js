@@ -743,7 +743,7 @@ function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
     if (overlay) {
         overlay.remove();
-        console.log('[parcel] ✨ Error resolved');
+        console.log('[parcel] ��� Error resolved');
     }
 }
 function createErrorOverlay(diagnostics) {
@@ -21951,7 +21951,7 @@ class MainView extends _reactDefault.default.Component {
     onLoggedIn(authData) {
         console.log(authData);
         this.props.setUser(authData.user);
-        this.props.addFavorite(authData.user);
+        // this.props.addFavorite(authData.user)
         // this.setState({
         //   user: authData.user.Username
         // });
@@ -31454,6 +31454,7 @@ var _rowDefault = parcelHelpers.interopDefault(_row);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _movieCard = require("../movie-card/movie-card");
+var _movieCardDefault = parcelHelpers.interopDefault(_movieCard);
 var _reactRedux = require("react-redux");
 var _actions = require("../../actions/actions");
 class ProfileView extends _reactDefault.default.Component {
@@ -31518,17 +31519,17 @@ class ProfileView extends _reactDefault.default.Component {
         });
     };
     render() {
-        const { onBackClick , userFavorite , movies  } = this.props;
+        const { onBackClick , userState , movies  } = this.props;
         const { update  } = this.state;
         let date;
-        if (userFavorite) {
-            date = new Date(userFavorite.Birthday);
+        if (userState) {
+            date = new Date(userState.Birthday);
             date = date.toLocaleDateString();
             date = date.split(' ')[0];
         }
         let favMovies;
-        if (userFavorite && userFavorite.FavoriteMovies) favMovies = movies.filter((item)=>{
-            return userFavorite.FavoriteMovies.includes(item._id);
+        if (userState && userState.FavoriteMovies) favMovies = movies.filter((item)=>{
+            return userState.FavoriteMovies.includes(item._id);
         });
         if (!update) return(/*#__PURE__*/ _reactDefault.default.createElement(_react.Fragment, {
             __source: {
@@ -31536,7 +31537,7 @@ class ProfileView extends _reactDefault.default.Component {
                 lineNumber: 103
             },
             __self: this
-        }, userFavorite && /*#__PURE__*/ _reactDefault.default.createElement("div", {
+        }, userState && /*#__PURE__*/ _reactDefault.default.createElement("div", {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
                 lineNumber: 104
@@ -31562,14 +31563,14 @@ class ProfileView extends _reactDefault.default.Component {
                 lineNumber: 107
             },
             __self: this
-        }, userFavorite.Username), /*#__PURE__*/ _reactDefault.default.createElement("p", {
+        }, userState.Username), /*#__PURE__*/ _reactDefault.default.createElement("p", {
             className: "value ml-4 pt-2",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
                 lineNumber: 108
             },
             __self: this
-        }, "Email: ", userFavorite.Email), /*#__PURE__*/ _reactDefault.default.createElement("p", {
+        }, "Email: ", userState.Email), /*#__PURE__*/ _reactDefault.default.createElement("p", {
             className: "value ml-4 pt-2",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/profile-view/profile-view.jsx",
@@ -31612,7 +31613,8 @@ class ProfileView extends _reactDefault.default.Component {
                     lineNumber: 118
                 },
                 __self: this
-            }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
+            }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCardDefault.default, {
+                isProfile: true,
                 movie: m,
                 buttonFunction: this.removeFavorite,
                 text: 'Remove from Favorites',
@@ -31650,7 +31652,7 @@ class ProfileView extends _reactDefault.default.Component {
             __self: this
         }, "Username:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
             type: "text",
-            value: userFavorite.Username,
+            value: userState.Username,
             onChange: (e)=>this.setState({
                     user: {
                         ...this.state.user,
@@ -31705,7 +31707,7 @@ class ProfileView extends _reactDefault.default.Component {
             __self: this
         }, "email:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
             type: "text",
-            value: userFavorite.Email,
+            value: userState.Email,
             onChange: (e)=>this.setState({
                     user: {
                         ...this.state.user,
@@ -31733,7 +31735,7 @@ class ProfileView extends _reactDefault.default.Component {
             __self: this
         }, "birthdate:"), /*#__PURE__*/ _reactDefault.default.createElement(_formDefault.default.Control, {
             type: "text",
-            value: userFavorite.Birthday,
+            value: userState.Birthday,
             onChange: (e)=>this.setState({
                     user: {
                         ...this.state.user,
@@ -31759,11 +31761,11 @@ class ProfileView extends _reactDefault.default.Component {
     }
 }
 const mapStateToProps = (state)=>{
-    const { visibilityFilter , movies , userFavorite  } = state;
+    const { visibilityFilter , movies , userState  } = state;
     return {
         visibilityFilter,
         movies,
-        userFavorite
+        userState
     };
 };
 const mapDispatchToProps = {
@@ -31786,8 +31788,6 @@ helpers.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MovieCard", ()=>MovieCard
-);
 // movie-card.jsx
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -31797,14 +31797,16 @@ var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _card = require("react-bootstrap/Card");
 var _cardDefault = parcelHelpers.interopDefault(_card);
+var _reactRedux = require("react-redux");
 var _reactRouterDom = require("react-router-dom");
 class MovieCard extends _reactDefault.default.Component {
     render() {
-        const { movie , buttonFunction , text , disabled  } = this.props;
+        const { movie , buttonFunction , text , userState , isProfile  } = this.props;
+        const disableButton = userState.FavoriteMovies.includes(movie._id);
         return(/*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 14
+                lineNumber: 19
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Img, {
@@ -31812,61 +31814,76 @@ class MovieCard extends _reactDefault.default.Component {
             src: movie.ImagePath,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 15
+                lineNumber: 20
             },
             __self: this
         }), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Body, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 16
+                lineNumber: 21
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Title, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 17
+                lineNumber: 22
             },
             __self: this
         }, movie.Title), /*#__PURE__*/ _reactDefault.default.createElement(_cardDefault.default.Text, {
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 18
+                lineNumber: 23
             },
             __self: this
         }, movie.Description), /*#__PURE__*/ _reactDefault.default.createElement(_reactRouterDom.Link, {
             to: `/movies/${movie._id}`,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 19
+                lineNumber: 24
             },
             __self: this
         }, /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
             className: "mb-3 w-100",
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 20
+                lineNumber: 25
             },
             __self: this
-        }, "Open")), /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
-            disabled: disabled,
+        }, "Open")), isProfile ? /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
             className: "mb-3 w-100",
             onClick: ()=>buttonFunction(movie._id)
             ,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
-                lineNumber: 22
+                lineNumber: 28
+            },
+            __self: this
+        }, text) : /*#__PURE__*/ _reactDefault.default.createElement(_buttonDefault.default, {
+            disabled: disableButton,
+            className: "mb-3 w-100",
+            onClick: ()=>buttonFunction(movie._id)
+            ,
+            __source: {
+                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movie-card/movie-card.jsx",
+                lineNumber: 29
             },
             __self: this
         }, text))));
     }
 }
+const mapStateToProps = (state)=>{
+    return {
+        userState: state.userState
+    };
+};
+exports.default = _reactRedux.connect(mapStateToProps)(MovieCard);
 
   helpers.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"3b2NM","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","react-bootstrap/Card":"1CZWQ","react-router-dom":"1PMSK"}],"7GDa4":[function(require,module,exports) {
+},{"react":"3b2NM","@parcel/transformer-js/src/esmodule-helpers.js":"67PgH","../../../../../../.nvm/versions/node/v12.18.3/lib/node_modules/parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"2DHu9","prop-types":"4dfy5","react-bootstrap/Button":"1ru0l","react-bootstrap/Card":"1CZWQ","react-router-dom":"1PMSK","react-redux":"7GDa4"}],"7GDa4":[function(require,module,exports) {
 "use strict";
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 exports.__esModule = true;
@@ -33155,7 +33172,7 @@ function setUser(value) {
 function addFavorite(value) {
     return {
         type: ADD_FAVORITE,
-        payload: value
+        value
     };
 }
 function removeFavorite(value) {
@@ -33190,6 +33207,7 @@ var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _visibilityFilterInput = require("../visibility-filter-input/visibility-filter-input");
 var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
 var _movieCard = require("../movie-card/movie-card");
+var _movieCardDefault = parcelHelpers.interopDefault(_movieCard);
 var _actions = require("../../actions/actions");
 function MoviesList(props) {
     const addFavoriteMovie = (id)=>{
@@ -33202,12 +33220,12 @@ function MoviesList(props) {
             }
         }).then((response)=>{
             // return response.data
-            props.addFavorite(response.data);
+            props.addFavorite(response.data.FavoriteMovies);
         }).catch(function(error) {
             console.log(error);
         });
     };
-    const { movies , visibilityFilter , text , userFavorite  } = props;
+    const { movies , visibilityFilter , text , userState  } = props;
     let filteredMovies = movies;
     if (visibilityFilter !== '') filteredMovies = movies.filter((m)=>m.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
     );
@@ -33242,39 +33260,22 @@ function MoviesList(props) {
             lineNumber: 38
         },
         __self: this
-    })), filteredMovies.map((m)=>userFavorite.FavoriteMovies.includes(m._id) ? /*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
+    })), filteredMovies.map((m)=>/*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
             md: 3,
             key: m._id,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movies-list/movies-list.jsx",
-                lineNumber: 43
+                lineNumber: 42
             },
             __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
-            disabled: true,
-            text: 'Added to my favorites list',
-            movie: m,
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movies-list/movies-list.jsx",
-                lineNumber: 44
-            },
-            __self: this
-        })) : /*#__PURE__*/ _reactDefault.default.createElement(_colDefault.default, {
-            md: 3,
-            key: m._id,
-            __source: {
-                fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movies-list/movies-list.jsx",
-                lineNumber: 46
-            },
-            __self: this
-        }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCard.MovieCard, {
-            disabled: false,
+        }, /*#__PURE__*/ _reactDefault.default.createElement(_movieCardDefault.default, {
+            filteredMovies: filteredMovies,
             buttonFunction: addFavoriteMovie,
             text: text,
             movie: m,
             __source: {
                 fileName: "/Users/peterstaal/careerfoundry/myFlix-client/myFlix-client/src/components/movies-list/movies-list.jsx",
-                lineNumber: 47
+                lineNumber: 43
             },
             __self: this
         }))
@@ -33282,12 +33283,11 @@ function MoviesList(props) {
 }
 _c = MoviesList;
 const mapStateToProps = (state)=>{
-    const { visibilityFilter , movies , userState , userFavorite  } = state;
+    const { visibilityFilter , movies , userState  } = state;
     return {
         visibilityFilter,
         movies,
-        userState,
-        userFavorite
+        userState
     };
 };
 exports.default = _reactRedux.connect(mapStateToProps, {
@@ -35454,42 +35454,44 @@ function userState(state = {
     switch(action.type){
         case _actions.SET_USER:
             return action.value;
-        // case ADD_FAVORITE:
-        //   return {
-        //     ...state,
-        //     favoriteMovies: [...state.favoriteMovies, action.value]
-        //   };
-        // case REMOVE_FAVORITE:
-        //   return {
-        //     ...state,
-        //     favoriteMovies: state.favoriteMovies.filter(movie => movie !== action.value)
-        //   };
-        case _actions.REMOVE_USER:
-            return null;
-        default:
-            return state;
-    }
-}
-function userFavorite(state = {
-}, action) {
-    switch(action.type){
         case _actions.ADD_FAVORITE:
-            return action.payload;
+            console.log("STATE------", state, "ACTION -------", action);
+            return {
+                ...state,
+                FavoriteMovies: [
+                    ...action.value
+                ]
+            };
         case _actions.REMOVE_FAVORITE:
             return {
                 ...state,
                 FavoriteMovies: state.FavoriteMovies.filter((movie)=>movie !== action.value
                 )
             };
+        case _actions.REMOVE_USER:
+            return null;
         default:
             return state;
     }
 }
+// function userFavorite(state = {}, action) {
+//   switch (action.type) {
+//     case ADD_FAVORITE: {
+//       return action.payload
+//     };
+//     case REMOVE_FAVORITE:
+//       return {
+//         ...state,
+//         FavoriteMovies: state.FavoriteMovies.filter(movie => movie !== action.value)
+//       }
+//     default:
+//       return state;
+//   }
+// }
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
     movies,
-    userState,
-    userFavorite
+    userState
 });
 exports.default = moviesApp;
 

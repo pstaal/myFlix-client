@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
-import { MovieCard } from '../movie-card/movie-card';
+import MovieCard from '../movie-card/movie-card';
 import { addFavorite } from '../../actions/actions';
 
 function MoviesList(props) {
@@ -18,13 +18,13 @@ function MoviesList(props) {
       headers: { Authorization: `Bearer ${token}` }
     }).then(response => {
       // return response.data
-      props.addFavorite(response.data);
+      props.addFavorite(response.data.FavoriteMovies);
     })
       .catch(function (error) {
         console.log(error);
       });
   }
-  const { movies, visibilityFilter, text, userFavorite } = props;
+  const { movies, visibilityFilter, text, userState } = props;
 
   let filteredMovies = movies;
 
@@ -39,12 +39,8 @@ function MoviesList(props) {
     </Col>
 
     {filteredMovies.map(m => (
-      userFavorite.FavoriteMovies.includes(m._id) ?
       <Col md={3} key={m._id}>
-        <MovieCard disabled={true} text={'Added to my favorites list'} movie={m} />
-      </Col> :
-      <Col md={3} key={m._id}>
-        <MovieCard disabled={false} buttonFunction={addFavoriteMovie} text={text} movie={m} />
+        <MovieCard filteredMovies={filteredMovies} buttonFunction={addFavoriteMovie} text={text} movie={m} />
       </Col>
     ))}
   </Fragment>;
@@ -52,12 +48,11 @@ function MoviesList(props) {
 }
 
 const mapStateToProps = state => {
-  const { visibilityFilter, movies, userState, userFavorite } = state;
+  const { visibilityFilter, movies, userState } = state;
   return {
     visibilityFilter,
     movies,
-    userState,
-    userFavorite
+    userState
   };
 };
 

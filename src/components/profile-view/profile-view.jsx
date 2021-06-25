@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
-import { MovieCard } from '../movie-card/movie-card';
+import MovieCard  from '../movie-card/movie-card';
 import { connect } from 'react-redux';
 import { setUser, addFavorite, removeFavorite } from '../../actions/actions';
 
@@ -80,32 +80,32 @@ class ProfileView extends React.Component {
 
   render() {
 
-    const { onBackClick, userFavorite, movies } = this.props;
+    const { onBackClick, userState, movies } = this.props;
     const { update } = this.state;
 
     let date;
 
-    if (userFavorite) {
-      date = new Date(userFavorite.Birthday);
+    if (userState) {
+      date = new Date(userState.Birthday);
       date = date.toLocaleDateString();
       date = date.split(' ')[0];
     };
 
     let favMovies;
-    if (userFavorite && userFavorite.FavoriteMovies) {
+    if (userState && userState.FavoriteMovies) {
       favMovies = movies.filter(item => {
-        return userFavorite.FavoriteMovies.includes(item._id);
+        return userState.FavoriteMovies.includes(item._id);
       })
     }
 
     if (!update) {
       return (
         <Fragment>
-          {userFavorite && <div>
+          {userState && <div>
             <div>
               <div class="d-flex flex-row mb-6">
-                <h3 className="value">{userFavorite.Username}</h3>
-                <p className="value ml-4 pt-2">Email: {userFavorite.Email}</p>
+                <h3 className="value">{userState.Username}</h3>
+                <p className="value ml-4 pt-2">Email: {userState.Email}</p>
                 <p className="value ml-4 pt-2">Birthdate: {date}</p>
               </div>
               <Button className="mb-3 w-100" onClick={() => { onBackClick(); }}>Back</Button>
@@ -116,7 +116,7 @@ class ProfileView extends React.Component {
                 (
                   favMovies.map(m => (
                     <Col md={4} key={m._id}>
-                      <MovieCard movie={m} buttonFunction={this.removeFavorite} text={'Remove from Favorites'} />
+                      <MovieCard isProfile={true} movie={m} buttonFunction={this.removeFavorite} text={'Remove from Favorites'} />
                     </Col>))
                 ) :
                 (
@@ -133,7 +133,7 @@ class ProfileView extends React.Component {
         <Form>
           <Form.Group controlId="formUsername">
             <Form.Label>Username:</Form.Label>
-            <Form.Control type="text" value={userFavorite.Username} onChange={e => this.setState({
+            <Form.Control type="text" value={userState.Username} onChange={e => this.setState({
               user: {
                 ...this.state.user,
                 Username: e.target.value
@@ -154,7 +154,7 @@ class ProfileView extends React.Component {
           <Form.Group controlId="formEmail">
 
             <Form.Label>email:</Form.Label>
-            <Form.Control type="text" value={userFavorite.Email} onChange={e => this.setState({
+            <Form.Control type="text" value={userState.Email} onChange={e => this.setState({
               user: {
                 ...this.state.user,
                 Email: e.target.value
@@ -165,7 +165,7 @@ class ProfileView extends React.Component {
           <Form.Group controlId="formBirthDate">
 
             <Form.Label>birthdate:</Form.Label>
-            <Form.Control type="text" value={userFavorite.Birthday} onChange={e => this.setState({
+            <Form.Control type="text" value={userState.Birthday} onChange={e => this.setState({
               user: {
                 ...this.state.user,
                 Birthday: e.target.value
@@ -183,11 +183,11 @@ class ProfileView extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { visibilityFilter, movies, userFavorite } = state;
+  const { visibilityFilter, movies, userState } = state;
   return {
     visibilityFilter,
     movies,
-    userFavorite
+    userState
   };
 };
 

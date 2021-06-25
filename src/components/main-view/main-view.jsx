@@ -78,7 +78,7 @@ class MainView extends React.Component {
   onLoggedIn(authData) {
     console.log(authData);
     this.props.setUser(authData.user)
-    this.props.addFavorite(authData.user)
+    // this.props.addFavorite(authData.user)
     // this.setState({
     //   user: authData.user.Username
     // });

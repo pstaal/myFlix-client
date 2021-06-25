@@ -25,16 +25,17 @@ function userState(state = {}, action) {
   switch (action.type) {
     case SET_USER:
       return action.value;
-    // case ADD_FAVORITE:
-    //   return {
-    //     ...state,
-    //     favoriteMovies: [...state.favoriteMovies, action.value]
-    //   };
-    // case REMOVE_FAVORITE:
-    //   return {
-    //     ...state,
-    //     favoriteMovies: state.favoriteMovies.filter(movie => movie !== action.value)
-    //   };
+    case ADD_FAVORITE:
+      console.log("STATE------",state, "ACTION -------",action);
+      return {
+       ...state,
+        FavoriteMovies: [...action.value]
+      };
+    case REMOVE_FAVORITE:
+       return {
+         ...state,
+        FavoriteMovies: state.FavoriteMovies.filter(movie => movie !== action.value)
+      };
     case REMOVE_USER:
       return null
     default:
@@ -42,26 +43,25 @@ function userState(state = {}, action) {
   }
 }
 
-function userFavorite(state = {}, action) {
-  switch (action.type) {
-    case ADD_FAVORITE: {
-      return action.payload
-    };
-    case REMOVE_FAVORITE:
-      return {
-        ...state,
-        FavoriteMovies: state.FavoriteMovies.filter(movie => movie !== action.value)
-      }
-    default:
-      return state;
-  }
-}
+// function userFavorite(state = {}, action) {
+//   switch (action.type) {
+//     case ADD_FAVORITE: {
+//       return action.payload
+//     };
+//     case REMOVE_FAVORITE:
+//       return {
+//         ...state,
+//         FavoriteMovies: state.FavoriteMovies.filter(movie => movie !== action.value)
+//       }
+//     default:
+//       return state;
+//   }
+// }
 
 const moviesApp = combineReducers({
   visibilityFilter,
   movies,
-  userState,
-  userFavorite
+  userState
 });
 
 export default moviesApp;

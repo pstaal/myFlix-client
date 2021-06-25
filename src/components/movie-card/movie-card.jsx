@@ -3,13 +3,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { connect } from 'react-redux';
 
 import { Link } from "react-router-dom";
 
-export class MovieCard extends React.Component {
+class MovieCard extends React.Component {
 
   render() {
-    const { movie, buttonFunction, text, disabled } = this.props;
+    const { movie, buttonFunction, text, userState, isProfile } = this.props;
+
+
+    const disableButton = userState.FavoriteMovies.includes(movie._id);
+  
     return (
       <Card>
         <Card.Img variant="top" src={movie.ImagePath} />
@@ -19,9 +24,18 @@ export class MovieCard extends React.Component {
           <Link to={`/movies/${movie._id}`}>
             <Button className="mb-3 w-100">Open</Button>
           </Link>
-          <Button disabled={disabled} className="mb-3 w-100" onClick={() => buttonFunction(movie._id)}>{text}</Button>
+          {isProfile ?
+          <Button className="mb-3 w-100" onClick={() => buttonFunction(movie._id)}>{text}</Button> :
+          <Button disabled={disableButton} className="mb-3 w-100" onClick={() => buttonFunction(movie._id)}>{text}</Button>
+          }
         </Card.Body>
       </Card>
     );
   }
 };
+
+const mapStateToProps = (state) => {
+  return {userState: state.userState}
+};
+
+export default connect(mapStateToProps)(MovieCard);

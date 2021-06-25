@@ -20,7 +20,7 @@ export function setUser(value) {
 }
 
 export function addFavorite(value) {
-  return { type: ADD_FAVORITE, payload: value };
+  return { type: ADD_FAVORITE, value };
 }
 
 export function removeFavorite(value) {
